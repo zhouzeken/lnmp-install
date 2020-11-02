@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)https://www.cnblogs.com/dump/p/10329850.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="origin">
+    <meta name="description" content="1、安装nginx 下载链接 http://nginx.org/en/download.html (1)下载，解压 （2）在编译安装之前先安装需要的依赖库和编译软件安装 （3）nginx编译参数解析 ">
+    <meta property="og:description" content="1、安装nginx 下载链接 http://nginx.org/en/download.html (1)下载，解压 （2）在编译安装之前先安装需要的依赖库和编译软件安装 （3）nginx编译参数解析 ">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Linux下编译安装Lnmp - 清零者 - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="https://common.cnblogs.com/favicon.svg" type="image/svg+xml">
+    
+    <link rel="stylesheet" href="./Linux下编译安装Lnmp - 清零者 - 博客园_files/blog-common.min.css">
+    <link id="MainCss" rel="stylesheet" href="./Linux下编译安装Lnmp - 清零者 - 博客园_files/bundle-summergarden.min.css">
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./Linux下编译安装Lnmp - 清零者 - 博客园_files/bundle-summergarden-mobile.min.css">
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/dump/rss">
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/dump/rsd.xml">
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/dump/wlwmanifest.xml">
+    <script src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/osd.js.下载"></script><script async="" src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/analytics.js.下载"></script><script type="text/javascript" src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/encoder.js.下载"></script><script>
+        var currentBlogId = 389950;
+        var currentBlogApp = 'dump';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'summerGarden';
+        var visitorUserId = '';
+    </script>
+        <script>
+            var currentPostDateAdded = '2019-01-29 06:08';
+        </script>
+    <script src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/jquery-2.2.0.min.js.下载"></script>
+    <script src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/blog-common.min.js.下载"></script>
+    
+    
+    
+<script src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/pubads_impl_2020102601.js.下载" async=""></script><link rel="preload" href="./Linux下编译安装Lnmp - 清零者 - 博客园_files/f.txt" as="script"><script type="text/javascript" src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/f.txt"></script><link rel="prefetch" href="https://ec0bed937a81f1f5cb55204a13b2a4a0.safeframe.googlesyndication.com/safeframe/1-0-37/html/container.html"></head>
+<body class="has-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding"><a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/logo.svg" alt="博客园Logo"></a></li>
+                <li><a href="https://www.cnblogs.com/" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;skin-navbar-sitehome&#39;)">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;skin-navbar-news&#39;)">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;skin-navbar-q&#39;)">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;skin-navbar-brands&#39;)">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;skin-navbar-ing&#39;)">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;skin-navbar-edu&#39;)">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3">
+                        <button type="submit" id="zzk_search_button">
+                            <img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/search.svg" alt="搜索">
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客" style="display: none;">
+                        <img id="myblog_icon" class="navbar-icon" src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/myblog.svg" alt="我的博客">
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息" style="display: none;">
+                        <img id="msg_icon" class="navbar-icon" src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/message.svg" alt="短消息">
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown" style="display: none;">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/avatar-default.svg" alt="用户头像">
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/" style="display: inline;">注册</a>
+                    <a class="navbar-anonymous" href="javascript:void(0);" onclick="login()" style="display: inline;">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a href="https://www.cnblogs.com/dump/"><img id="blogLogo" src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/dump/">&lt;?ph7?&gt;</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+
+			<ul id="navList">
+				<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+				<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/dump/">
+首页</a>
+</li>
+				<li>
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+				<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E6%B8%85%E9%9B%B6%E8%80%85">
+联系</a></li>
+				<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+				<li>
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/dump/rss/">
+订阅</a>
+				
+<a id="blog_nav_rss_image" href="https://www.cnblogs.com/dump/rss/">
+    <img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/xml.gif" alt="订阅">
+</a></li>
+			</ul>
+
+
+
+		<div class="blogStats">
+			
+			<!--done-->
+随笔 - 
+58&nbsp;
+文章 - 
+1&nbsp;
+评论 - 
+8&nbsp;
+
+
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			
+<a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/dump/p/10329850.html">
+    <span>Linux下编译安装Lnmp</span>
+    
+
+
+</a>
+
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			
+<div id="cnblogs_post_body" class="blogpost-body">
+    <p>1、安装nginx</p>
+<p>&nbsp; &nbsp; 下载链接<a href="http://nginx.org/en/download.html" target="_blank"> http://nginx.org/en/download.html</a></p>
+<p>&nbsp; &nbsp; (1)下载，解压</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">wget</span> http:<span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">nginx.org/download/nginx-1.15.8.tar.gz</span>
+<span style="color: rgba(0, 0, 255, 1)">tar</span> zxf nginx-<span style="color: rgba(128, 0, 128, 1)">1.15</span>.<span style="color: rgba(128, 0, 128, 1)">8</span>.<span style="color: rgba(0, 0, 255, 1)">tar</span><span style="color: rgba(0, 0, 0, 1)">.gz
+cd nginx</span>-<span style="color: rgba(128, 0, 128, 1)">1.15</span>.<span style="color: rgba(128, 0, 128, 1)">8</span></pre>
+</div>
+<p>　（2）在编译安装之前先安装需要的依赖库和编译软件安装</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">yum</span> <span style="color: rgba(0, 0, 255, 1)">install</span> <span style="color: rgba(0, 0, 255, 1)">gcc</span> <span style="color: rgba(0, 0, 255, 1)">gcc</span>-c++ glibc -<span style="color: rgba(0, 0, 0, 1)">y
+</span><span style="color: rgba(0, 0, 255, 1)">yum</span> <span style="color: rgba(0, 0, 255, 1)">install</span> pcre-devel -<span style="color: rgba(0, 0, 0, 1)">y
+</span><span style="color: rgba(0, 0, 255, 1)">yum</span> <span style="color: rgba(0, 0, 255, 1)">install</span> zlib-devel -<span style="color: rgba(0, 0, 0, 1)">y
+</span><span style="color: rgba(0, 0, 255, 1)">yum</span> <span style="color: rgba(0, 0, 255, 1)">install</span> openssl-devel -y</pre>
+</div>
+<p>　（3）nginx编译参数解析</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>–prefix #nginx安装目录，默认在/usr/local/<span style="color: rgba(0, 0, 0, 1)">nginx
+–pid</span>-<span style="color: rgba(0, 0, 0, 1)">path #pid问件位置，默认在logs目录
+–lock</span>-<span style="color: rgba(0, 0, 0, 1)">path #lock问件位置，默认在logs目录
+–with</span>-<span style="color: rgba(0, 0, 0, 1)">http_ssl_module #开启HTTP SSL模块，以支持HTTPS请求。
+–with</span>-<span style="color: rgba(0, 0, 0, 1)">http_dav_module #开启WebDAV扩展动作模块，可为文件和目录指定权限
+–with</span>-<span style="color: rgba(0, 0, 0, 1)">http_flv_module #支持对FLV文件的拖动播放
+–with</span>-<span style="color: rgba(0, 0, 0, 1)">http_realip_module #支持显示真实来源IP地址
+–with</span>-<span style="color: rgba(0, 0, 0, 1)">http_gzip_static_module #预压缩文件传前检查，防止文件被重复压缩
+–with</span>-<span style="color: rgba(0, 0, 0, 1)">http_stub_status_module #取得一些nginx的运行状态
+–with</span>-mail #允许POP3/IMAP4/<span style="color: rgba(0, 0, 0, 1)">SMTP代理模块
+–with</span>-<span style="color: rgba(0, 0, 0, 1)">mail_ssl_module #允许POP3／IMAP／SMTP可以使用SSL／TLS
+–with</span>-pcre=../pcre-<span style="color: rgba(128, 0, 128, 1)">8.11</span><span style="color: rgba(0, 0, 0, 1)"> #注意是未安装的pcre路径
+–with</span>-zlib=../zlib-<span style="color: rgba(128, 0, 128, 1)">1.2</span>.<span style="color: rgba(128, 0, 128, 1)">5</span><span style="color: rgba(0, 0, 0, 1)"> #注意是未安装的zlib路径
+–with</span>-<span style="color: rgba(0, 0, 0, 1)">debug #允许调试日志
+–http</span>-client-body-temp-<span style="color: rgba(0, 0, 0, 1)">path #客户端请求临时文件路径
+–http</span>-proxy-temp-<span style="color: rgba(0, 0, 0, 1)">path #设置http proxy临时文件路径
+–http</span>-fastcgi-temp-<span style="color: rgba(0, 0, 0, 1)">path #设置http fastcgi临时文件路径
+–http</span>-uwsgi-temp-path=/var/tmp/nginx/<span style="color: rgba(0, 0, 0, 1)">uwsgi #设置uwsgi 临时文件路径
+–http</span>-scgi-temp-path=/var/tmp/nginx/scgi #设置scgi 临时文件路径</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp; &nbsp; （4）编译安装</p>
+<p>　　在linux 上通过yum安装nginx默认使用nobody用户和用户组。&nbsp;<a href="http://www.runoob.com/linux/linux-user-manage.html" target="_blank">http://www.runoob.com/linux/linux-user-manage.html</a>&nbsp; &nbsp;</p>
+<div class="cnblogs_code">
+<pre># <span style="color: rgba(0, 0, 255, 1)">grep</span> <span style="color: rgba(128, 0, 0, 1)">'</span><span style="color: rgba(128, 0, 0, 1)">#user</span><span style="color: rgba(128, 0, 0, 1)">'</span><span style="color: rgba(0, 0, 0, 1)"> nginx.conf.default
+#user bobody;</span></pre>
+</div>
+<p>&nbsp; &nbsp; &nbsp;为了防止黑客猜到这个Web服务的用户，我们需要将其更改成特殊的用户名；有两种方式</p>
+<p>&nbsp; &nbsp; （1）在编译的时候可以手动指定用户和组。</p>
+<p>　 （2）将默认的"#user nobody;" 改为如下内容</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 0, 1)">并在nginx编译安装完成之后，修改nginx.conf 
+user  nginx   nginx;  </span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">用户    用户组</span></pre>
+</div>
+<p>&nbsp; &nbsp; &nbsp;手动创建nginx属主和nginx属组</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: rgba(128, 0, 128, 1)">1</span><span style="color: rgba(0, 0, 0, 1)">、增加一个新的用户组使用groupadd命令。其格式如下：
+groupadd 选项 用户组
+
+可以使用的选项有：
+</span>-<span style="color: rgba(0, 0, 0, 1)">g GID 指定新用户组的组标识号（GID）。
+</span>-o 一般与-<span style="color: rgba(0, 0, 0, 1)">g选项同时使用，表示新用户组的GID可以与系统已有用户组的GID相同。
+
+例如：
+# groupadd group1
+说明：此命令向系统中增加了一个新组group1，新组的组标识号是在当前已有的最大组标识号的基础上加1。
+
+</span><span style="color: rgba(128, 0, 128, 1)">2</span><span style="color: rgba(0, 0, 0, 1)">、添加新的用户账号使用useradd命令，其语法如下：
+useradd 选项 用户名
+
+选项参数说明：
+</span>-<span style="color: rgba(0, 0, 0, 1)">c comment 指定一段注释性描述。
+</span>-d 目录 指定用户主目录，如果此目录不存在，则同时使用-<span style="color: rgba(0, 0, 0, 1)">m选项，可以创建主目录。
+</span>-<span style="color: rgba(0, 0, 0, 1)">g 用户组 指定用户所属的用户组。
+</span>-<span style="color: rgba(0, 0, 0, 1)">G 用户组，用户组 指定用户所属的附加组。
+</span>-<span style="color: rgba(0, 0, 0, 1)">s Shell文件 指定用户的登录Shell。
+</span>-u 用户号 指定用户的用户号，如果同时有-<span style="color: rgba(0, 0, 0, 1)">o选项，则可以重复使用其他用户的标识号。
+用户名: 指定新账号的登录名。
+
+ 例如：
+# useradd –d </span>/usr/sam -<span style="color: rgba(0, 0, 0, 1)">m sam
+说明：此命令创建了一个用户sam，其中</span>-d和-m选项用来为登录名sam产生一个主目录/usr/sam（/<span style="color: rgba(0, 0, 0, 1)">usr为默认的用户主目录所在的父目录）。
+
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">添加nginx用户组</span>
+<span style="color: rgba(0, 0, 0, 1)">groupadd nginx
+</span><span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">添加nginx用户</span>
+useradd nginx -g nginx -s /sbin/nologin -<span style="color: rgba(0, 0, 0, 1)">M
+说明：
+</span>-s表示指定用户所用的shell，此处为/sbin/<span style="color: rgba(0, 0, 0, 1)">nologin，表示不登录。
+</span>-<span style="color: rgba(0, 0, 0, 1)">M表示不创建用户主目录。
+</span>-g表示指定用户的组名为nginx。</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>　　《执行编译》</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>./configure  --prefix=/opt/local/<span style="color: rgba(0, 0, 0, 1)">nginx\  
+</span>--sbin-path=/opt/local/nginx/sbin/<span style="color: rgba(0, 0, 0, 1)">nginx\ 
+</span>--conf-path=/opt/local/nginx/conf/<span style="color: rgba(0, 0, 0, 1)">nginx.conf\ 
+</span>--error-log-path=/var/log/nginx/<span style="color: rgba(0, 0, 0, 1)">error.log\  
+</span>--http-log-path=/var/log/nginx/<span style="color: rgba(0, 0, 0, 1)">access.log\  
+</span>--pid-path=/var/run/nginx/<span style="color: rgba(0, 0, 0, 1)">nginx.pid\ 
+</span>--lock-path=/var/lock/<span style="color: rgba(0, 0, 0, 1)">nginx.lock\  
+</span>--user=<span style="color: rgba(0, 0, 0, 1)">nginx\
+</span>--group=<span style="color: rgba(0, 0, 0, 1)">nginx\ 
+</span>--with-<span style="color: rgba(0, 0, 0, 1)">http_ssl_module\ 
+</span>--with-<span style="color: rgba(0, 0, 0, 1)">http_stub_status_module\ 
+</span>--with-<span style="color: rgba(0, 0, 0, 1)">http_gzip_static_module\ 
+</span>--http-client-body-temp-path=/var/tmp/nginx/client/\ 
+--http-proxy-temp-path=/var/tmp/nginx/proxy/\ 
+--http-fastcgi-temp-path=/var/tmp/nginx/fcgi/\ 
+--http-uwsgi-temp-path=/var/tmp/nginx/<span style="color: rgba(0, 0, 0, 1)">uwsgi\ 
+</span>--http-scgi-temp-path=/var/tmp/nginx/<span style="color: rgba(0, 0, 0, 1)">scgi\ 
+</span>--with-pcre</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>　　或 执行时格式这样子</p>
+<div class="cnblogs_code">
+<pre>./configure  --prefix=/opt/local/nginx  --sbin-path=/opt/local/nginx/sbin/nginx --conf-path=/opt/local/nginx/conf/nginx.conf --error-log-path=/var/log/nginx/error.log  --http-log-path=/var/log/nginx/access.log  --pid-path=/var/run/nginx/nginx.pid --lock-path=/var/lock/nginx.lock  --user=nginx --group=nginx --with-http_ssl_module --with-http_stub_status_module --with-http_gzip_static_module --http-client-body-temp-path=/var/tmp/nginx/client/ --http-proxy-temp-path=/var/tmp/nginx/proxy/ --http-fastcgi-temp-path=/var/tmp/nginx/fcgi/ --http-uwsgi-temp-path=/var/tmp/nginx/uwsgi --http-scgi-temp-path=/var/tmp/nginx/scgi --with-pcre</pre>
+</div>
+<p>　　执行完成的样子</p>
+<p><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/1263178-20190128124424638-1602047192.png" alt="" width="481" height="270"></p>
+<p>&nbsp; &nbsp;最后执行如下</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">make</span> &amp;&amp; <span style="color: rgba(0, 0, 255, 1)">make</span> <span style="color: rgba(0, 0, 255, 1)">install</span></pre>
+</div>
+<p>&nbsp; &nbsp;查看如下</p>
+<p><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/1263178-20190128124600619-1001047498.png" alt="" width="298" height="82"></p>
+<p>&nbsp; &nbsp;（5）修改查看配置</p>
+<p><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/1263178-20190128125015674-570743959.png" alt="" width="464" height="263"></p>
+<p>&nbsp; &nbsp;修改启动软连</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">ln</span> -s /opt/local/nginx/sbin/nginx /usr/bin/</pre>
+</div>
+<p>&nbsp; &nbsp;启动nginx</p>
+<div class="cnblogs_code">
+<pre>/opt/local/nginx/sbin/nginx<br>or<br>nginx -t //已经软连接过了<br>nginx</pre>
+</div>
+<p>&nbsp; &nbsp;<img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/1263178-20190128132041638-370831559.png" alt="" width="705" height="177"></p>
+<p>&nbsp; &nbsp;如图所示，报错没有找到nginx文件夹，没关系，创建一个即可。再重新启动查看端口号</p>
+<p>&nbsp;&nbsp;<img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/1263178-20190128132435639-440449643.png" alt="" width="742" height="239"></p>
+<p>&nbsp; &nbsp; (6)查看网络状态&nbsp;<a href="http://www.runoob.com/linux/linux-comm-netstat.html" target="_blank">&nbsp;http://www.runoob.com/linux/linux-comm-netstat.html</a></p>
+<div class="cnblogs_code">
+<pre>netstat -lntup</pre>
+</div>
+<p><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/1263178-20190128132928648-231483635.png" alt="" width="887" height="197"></p>
+<p>　　到这里nginx的安装就非常完美的告一段落了。</p>
+<div class="cnblogs_code">
+<pre>[root@localhost www]# nginx -<span style="color: rgba(0, 0, 0, 1)">s reload
+nginx: [alert] </span><span style="color: rgba(0, 0, 255, 1)">kill</span>(<span style="color: rgba(128, 0, 128, 1)">17615</span>, <span style="color: rgba(128, 0, 128, 1)">1</span>) failed (<span style="color: rgba(128, 0, 128, 1)">3</span>: No such process)</pre>
+</div>
+<p>　　当nginx 重启的时候遇到这个问题，意思没有这样的进程，怀疑没有启动nginx</p>
+<p>　　(1)执行命令，定位nginx: whereis nginx</p>
+<p>　　(2)查找配置文件 find / -name nginx.conf</p>
+<p>　 （3）指定配置文件地址/usr/bin/nginx -c /opt/local/nginx/conf/nginx.conf</p>
+<p>　　最后在重启即可：nginx -s reload&nbsp;</p>
+<div class="cnblogs_Highlighter sh-gutter">
+<div><div id="highlighter_726184" class="syntaxhighlighter  csharp"><div class="toolbar"><span><a href="https://www.cnblogs.com/dump/p/10329850.html#" class="toolbar_item command_help help">?</a></span></div><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="csharp plain">[root@localhost conf]# nginx -s reload</code></div><div class="line number2 index1 alt1"><code class="csharp plain">nginx: [error] open() </code><code class="csharp string">"/var/run/nginx/nginx.pid"</code> <code class="csharp plain">failed (2: No such file or directory)</code></div></div></td></tr></tbody></table></div></div>
+</div>
+<p>　　</p>
+<p>2、安装PHP</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">wget</span> http:<span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">cn2.php.net/distributions/php-7.2.8.tar.gz<br>tar -xzf php-7.2.8.tar.gz<br></span></pre>
+</div>
+<p>&nbsp; &nbsp;(1)先安装编译依赖的组件</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">yum</span> -y <span style="color: rgba(0, 0, 255, 1)">install</span> <span style="color: rgba(0, 0, 255, 1)">gcc</span> <span style="color: rgba(0, 0, 255, 1)">gcc</span>-c++ <span style="color: rgba(0, 0, 255, 1)">gcc</span>-g77 <span style="color: rgba(0, 0, 255, 1)">make</span> libtool autoconf <span style="color: rgba(0, 0, 255, 1)">patch</span> <span style="color: rgba(0, 0, 255, 1)">unzip</span> automake libxml2 libxml2-devel ncurses ncurses-devel libtool-ltdl-devel libtool-ltdl libmcrypt libmcrypt-devel libpng libpng-devel libjpeg-<span style="color: rgba(0, 0, 0, 1)">devel 
+openssl openssl</span>-devel gd-devel curl curl-devel libxml2 libxml2-devel ncurses ncurses-devel libtool-ltdl-devel libtool-ltdl autoconf automake libaio*</pre>
+</div>
+<p>&nbsp; &nbsp; 说明：</p>
+<p>&nbsp; &nbsp; nginx本身不能处理<a class="replace_word" title="PHP知识库" href="http://lib.csdn.net/base/php" rel="nofollow" target="_blank">PHP</a>，它只是个web<a href="https://www.baidu.com/s?wd=%E6%9C%8D%E5%8A%A1%E5%99%A8&amp;tn=24004469_oem_dg&amp;rsv_dl=gh_pl_sl_csd" target="_blank">服务器</a>，当接收到请求后，如果是php请求，则发给php解释器处理，并把结果返回给客户端。</p>
+<p>&nbsp; &nbsp; nginx一般是把请求发fastcgi管理进程处理，fascgi管理进程选择cgi子进程处理结果并返回给nginx</p>
+<p>&nbsp; &nbsp; （2）什么是PHP-FPM</p>
+<p>&nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp;PHP-FPM是一个PHP FastCGI管理器，是只用于PHP的,可以在 http://php-fpm.org/download下载得到.</p>
+<p>&nbsp; &nbsp; &nbsp;PHP-FPM其实是PHP源代码的一个补丁，旨在将FastCGI进程管理整合进PHP包中。必须将它patch到你的PHP源代码中，在编译安装PHP后才可以使用。</p>
+<p>&nbsp; &nbsp; &nbsp;新版PHP已经集成php-fpm了，不再是第三方的包了，推荐使用。</p>
+<p>&nbsp; &nbsp; &nbsp;PHP-FPM提供了更好的PHP进程管理方式，可以有效控制内存和进程、可以平滑重载PHP配置，比spawn-fcgi具有更多优点，所以被PHP官方收录了。</p>
+<p>&nbsp; &nbsp; &nbsp;在./configure的时候带 –enable-fpm参数即可开启PHP-FPM，其它参数都是配置php的，具体选项含义可以<a href="http://www.php.net/manual/en/configure.about.php" rel="nofollow" target="_blank">查看这里</a>。</p>
+<p>&nbsp; &nbsp; （3） 编译安装 (修改对应的配置)</p>
+<div class="cnblogs_code">
+<pre>./configure --prefix=/opt/local/php7 --with-curl --with-mysql-sock=/var/tmp/mysql/mysql.sock --with-jpeg-<span style="color: rgba(0, 0, 255, 1)">dir</span> --with-freetype-<span style="color: rgba(0, 0, 255, 1)">dir</span> --with-gd --with-gettext --with-iconv-<span style="color: rgba(0, 0, 255, 1)">dir</span> --with-kerberos --with-libxml-<span style="color: rgba(0, 0, 255, 1)">dir</span> --with-mysqli=mysqlnd --with-openssl --with-pcre-regex --with-pdo-mysql=mysqlnd --with-pdo-sqlite --with-pear --with-png-<span style="color: rgba(0, 0, 255, 1)">dir</span> --with-xmlrpc --with-xsl --with-zlib --with-pdo-mysql --with-fpm-user=nginx --with-fpm-group=nginx --enable-fpm --enable-bcmath --enable-libxml --enable-inline-optimization --enable-gd-native-ttf --enable-mbregex --enable-mbstring --enable-opcache --enable-pcntl --enable-shmop --enable-soap  --enable-sockets --enable-sysvsem --enable-xml --enable-<span style="color: rgba(0, 0, 255, 1)">zip</span> --enable-mysqlnd --enable-maintainer-zts</pre>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;如果编译遇到一个问题：-bash: --with-freetype-dir&nbsp; 没有那个文件或目录</p>
+<p>&nbsp;先安装&nbsp;freetype</p>
+<p>&nbsp;yum&nbsp; install&nbsp;&nbsp;freetype</p>
+<p>编译时遇到的问题，安装即可，最后在执行上面的编译安装</p>
+<p>&nbsp;yum install libcurl-devel</p>
+<p>&nbsp;yum -y install libxslt libxslt-devel</p>
+<p>&nbsp;最后的样子</p>
+<p><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/1263178-20190128174542689-169437333.png" alt="" width="518" height="403"></p>
+<p>&nbsp; 然后执行如下命令</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">make</span> &amp;&amp; <span style="color: rgba(0, 0, 255, 1)">make</span> <span style="color: rgba(0, 0, 255, 1)">install</span></pre>
+</div>
+<p>&nbsp;<img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/1263178-20190128180101617-957669535.png" alt="" width="641" height="305"></p>
+<p>以上php就安装好了，接下来进行配置</p>
+<p>1).在执行configure的地方执行如下命令</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">cp</span> php.ini-production /opt/local/php7/etc/<span style="color: rgba(0, 0, 0, 1)">php.ini
+cd </span>/opt/local/php7/etc/    //查看是否有了 php.ini</pre>
+</div>
+<p>2).在接着执行如下命令</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">cp</span> php-fpm.conf.default php-fpm.conf</pre>
+</div>
+<p>3).在进入这个目录 cd php-fpm.d/&nbsp; 在继续执行如下命令</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">cp</span> www.conf.default www.conf</pre>
+</div>
+<p>4).最后在这个目录 /opt/local/php7/sbin 执行如下命令</p>
+<div class="cnblogs_code">
+<pre>./php-fpm</pre>
+</div>
+<p>5).查看一下端口号是否启动了&nbsp;netstat -lntup</p>
+<p><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/1263178-20190129100427624-741828592.png" alt="" width="580" height="206"></p>
+<p>由图片可见，php-fpm 已经成功启动了。</p>
+<p>设置全局php访问</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 255, 1)">ln</span> -s /opt/local/php7/bin/php /usr/bin/php</pre>
+</div>
+<p>添加永久环境变量，影响所有用户</p>
+<div class="cnblogs_code">
+<pre>vim /etc/<span style="color: rgba(0, 0, 0, 1)">profile
+在文档最后，添加如下命令；说明（</span>sbin 为php-fpm 所在，bin 为php客户端所在）<br><br><span>export PATH </span>= <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">/opt/local/php7/sbin:/opt/local/php7/bin:$PATH</span><span style="color: rgba(128, 0, 0, 1)">" </span><span> 保持退出 然后运行 source </span>/etc/profile</pre>
+</div>
+<p>具体资源可看这里，<a href="https://www.cnblogs.com/aaronLinux/p/5837702.html" target="_blank">环境变量设置</a></p>
+<p><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/1263178-20190129161105465-175919648.png" alt="" width="927" height="165"></p>
+<p>&nbsp; 其他说明：</p>
+<p>&nbsp; 因为没有安装mysql，所以查看/opt/local/php7/lib/php/extensions/no-debug-zts-20170718/下只有opcache.a&nbsp; opcache.so 两个扩展，</p>
+<p>&nbsp; 而如果安装了mysql则需要确保存在mysqli.so、pdo_mysql.so这两个动态库文件，否则无法与mysql通信成功;<br>　</p>
+<p>&nbsp; &nbsp;解决重启php-fpm时遇到的一些问题；</p>
+<div class="cnblogs_code">
+<pre>[root@localhost /]# service php-<span style="color: rgba(0, 0, 0, 1)">fpm start
+Redirecting to </span>/bin/systemctl start php-<span style="color: rgba(0, 0, 0, 1)">fpm.service
+Failed to start php</span>-fpm.service: Unit not found.</pre>
+</div>
+<p>&nbsp; 上面的问题是说 php-fpm.service: Unit not found</p>
+<p>　解决思路：因为php-fpm是编译安装的，所以，那个脚本文件不存在。在service的时候会自动访问 init.d/目录下的php-fpm脚本，没有这个脚本就会报那个错误。</p>
+<p>　　　　　　所以这个时候需要将编译目录下的这个脚本/root/php-7.2.8/sapi/fpm/init.d.php-fpm&nbsp; &nbsp;cp 到 init.d/的目录，</p>
+<p>　　　　　　cp /root/php-7.2.8/sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm&nbsp; 这样就可以执行了，并修改这个文件的可执行权限</p>
+<p>&nbsp; &nbsp;解决方案</p>
+<p>&nbsp; &nbsp;1）find / -name 'init.d.php-fpm'</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;/root/php-7.2.8/sapi/fpm/init.d.php-fpm</p>
+<p>&nbsp; &nbsp;2）cp /root/php-7.2.8/sapi/fpm/init.d.php-fpm /etc/init.d/php-f</p>
+<p>&nbsp; &nbsp;3）chmod a+x /etc/init.d/php-fpm&nbsp; &nbsp; //修改为可执行权限</p>
+<p>&nbsp; &nbsp;4）service php-fpm start</p>
+<p>又遇到问题了：</p>
+<p>Starting php-fpm [26-Jan-2019 05:01:49] ERROR: unable to bind listening socket for address '127.0.0.1:9000': Address already in use (98)<br>[26-Jan-2019 05:01:49] ERROR: FPM initialization failed</p>
+<p>遇到这个问题也是头大，先看一下进程</p>
+<p>&nbsp; &nbsp; &nbsp; netstat -lntup | grep 9000&nbsp;&nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp; killall php-fpm</p>
+<p>&nbsp; &nbsp;5）开启php:&nbsp; &nbsp; service php-fpm start|restart|stop</p>
+<p>&nbsp; &nbsp;6)&nbsp; 查看：ps aux | grep php</p>
+<p>&nbsp; &nbsp;7)&nbsp; &nbsp;查看版本： php -v</p>
+<p>以上就完成了php-fpm的安装流程和启动流程</p>
+<p>&nbsp;</p>
+<p>6)修改nginx.conf 支持可执行php</p>
+<p>&nbsp; &nbsp;略</p>
+<p>7)通过浏览器访问虚拟机的ip</p>
+<p>　　1、修改mac的hosts,</p>
+<p>&nbsp; &nbsp; &nbsp; 2、关闭虚拟机的防火墙，访问即可，参考&nbsp;&nbsp;https://blog.csdn.net/sshuidajiao/article/details/82594504</p>
+<p>&nbsp; &nbsp;<img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/1263178-20190203145219193-1152169094.png" alt="" width="777" height="151"></p>
+<p>&nbsp;</p>
+<p>&nbsp;3、安装php扩展&nbsp;</p>
+<p>　　curl.so ||&nbsp; mysqli.so</p>
+<p>　　1).切换到php源码目录下</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: rgba(0, 0, 0, 1)">root@localhost ext]# pwd
+</span>/root/php-<span style="color: rgba(128, 0, 128, 1)">7.2</span>.<span style="color: rgba(128, 0, 128, 1)">8</span>/<span style="color: rgba(0, 0, 0, 1)">ext
+[root@localhost ext]# ls
+bcmath      curl     exif                ftp      iconv      ldap      oci8     pcre          pdo_oci     phar      reflection  snmp     sqlite3   tidy       xmlrpc     zlib
+bz2         date     ext_skel            gd       imap       libxml    odbc     pdo           pdo_odbc    posix     session     soap     standard  tokenizer  xmlwriter
+calendar    dba      ext_skel_win32.php  gettext  interbase  mbstring  opcache  pdo_dblib     pdo_pgsql   pspell    shmop       sockets  sysvmsg   wddx       xsl
+com_dotnet  dom      fileinfo            gmp      intl       mysqli    openssl  pdo_firebird  pdo_sqlite  readline  simplexml   sodium   sysvsem   xml        zend_test
+ctype       enchant  filter              hash     json       mysqlnd   pcntl    pdo_mysql     pgsql       recode    skeleton    spl      sysvshm   xmlreader  zip
+[root@localhost ext]#</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>　　2).调用Configure生成Makefile文件</p>
+<div class="cnblogs_code">
+<pre>/opt/local/php7/bin/phpize</pre>
+<pre>./configure --with-php-config=/opt/local/php7/bin/php-config</pre>
+</div>
+<p>　　3).编译、安装</p>
+<div class="cnblogs_code">
+<pre>make &amp;&amp; make install</pre>
+</div>
+<p>　　4).配置php.ini 开启curl.so</p>
+<p>　　extension=curl.so 去掉 ";"</p>
+<p>　　5).重启服务</p>
+<div class="cnblogs_code">
+<pre>service php-fpm restart</pre>
+</div>
+<p>　　6).查看 php -m 即可</p>
+<p>&nbsp;</p>
+<p>4、安装mysql5.7</p>
+<p>　　1)下载mysql安装包并解压且编译安装</p>
+<p>　　cd 到root目录</p>
+<p>　　说明：由于MySQL5.7必须使用boost.1.59及以上版本，需要安装boost</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>[root@localhost ~]# wget https:<span style="color: rgba(0, 128, 0, 1)">//</span><span style="color: rgba(0, 128, 0, 1)">jaist.dl.sourceforge.net/project/boost/boost/1.59.0/boost_1_59_0.tar.gz</span>
+[root@localhost ~]# tar -<span style="color: rgba(0, 0, 0, 1)">zxvf boost_1_59_0.tar.gz
+[root@localhost ~]# cd boost_1_59_0
+[root@localhost boost_1_59_0]# .</span>/<span style="color: rgba(0, 0, 0, 1)">bootstrap.sh
+[root@localhost boost_1_59_0]# .</span>/<span style="color: rgba(0, 0, 0, 1)">b2
+[root@localhost boost_1_59_0]# .</span>/<span style="color: rgba(0, 0, 0, 1)">b2 install
+[root@localhost boost_1_59_0]# cd ..</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>　　编译安装mysql</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>[root@localhost ~]# cd mysql-<span style="color: rgba(128, 0, 128, 1)">5.7</span>.<span style="color: rgba(128, 0, 128, 1)">20</span><span style="color: rgba(0, 0, 0, 1)">
+[root@localhost mysql</span>-<span style="color: rgba(128, 0, 128, 1)">5.7</span>.<span style="color: rgba(128, 0, 128, 1)">20</span>]# cmake -DCMAKE_INSTALL_PREFIX=/opt/local/mysql -DMYSQL_DATADIR=/opt/local/mysql/mydata -DSYSCONFDIR=/opt/local/mysql/conf -DMYSQL_USER=mysql -DWITH_MYISAM_STORAGE_ENGINE=<span style="color: rgba(128, 0, 128, 1)">1</span> -DWITH_INNOBASE_STORAGE_ENGINE=<span style="color: rgba(128, 0, 128, 1)">1</span> -DMYSQL_UNIX_ADDR=/opt/local/mysql/mysql.sock -DMYSQL_TCP_PORT=<span style="color: rgba(128, 0, 128, 1)">3306</span> -DEXTRA_CHARSETS=all -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_DEBUG=<span style="color: rgba(128, 0, 128, 1)">0</span> -DMYSQL_MAINTAINER_MODE=<span style="color: rgba(128, 0, 128, 1)">0</span> -DWITH_SSL:STRING=bundled -DWITH_ZLIB:STRING=bundled -DDOWNLOAD_BOOST=<span style="color: rgba(128, 0, 128, 1)">1</span> -DWITH_BOOST=./<span style="color: rgba(0, 0, 0, 1)">boost
+[root@localhost mysql</span>-<span style="color: rgba(128, 0, 128, 1)">5.7</span>.<span style="color: rgba(128, 0, 128, 1)">20</span>]# make &amp;&amp;<span style="color: rgba(0, 0, 0, 1)"> make install    ##耗时比较长
+
+注：
+</span>-DCMAKE_INSTALL_PREFIX=/opt/local/<span style="color: rgba(0, 0, 0, 1)">mysql 设置安装目录
+</span>-DMYSQL_DATADIR=/opt/local/mysql/<span style="color: rgba(0, 0, 0, 1)">mydata 设置数据库存放目录
+</span>-DMYSQL_UNIX_ADDR=/opt/local/mysql/<span style="color: rgba(0, 0, 0, 1)">mysql.sock 设置UNIX socket 目录
+</span>-DMYSQL_USER=<span style="color: rgba(0, 0, 0, 1)">mysql 设置运行用户
+</span>-DDEFAULT_CHARSET=<span style="color: rgba(0, 0, 0, 1)">utf8 设置默认字符集，默认latin1
+</span>-DEFAULT_COLLATION=<span style="color: rgba(0, 0, 0, 1)">utf8_general_ci 设置默认校对规则，默认latin1_general_ci
+</span>-DWITH_INNOBASE_STORAGE_ENGINE=<span style="color: rgba(128, 0, 128, 1)">1</span><span style="color: rgba(0, 0, 0, 1)"> 添加InnoDB引擎支持
+</span>-DENABLE_DOWNLOADS=<span style="color: rgba(128, 0, 128, 1)">1</span><span style="color: rgba(0, 0, 0, 1)"> 自动下载可选文件，比如自动下载谷歌的测试包
+</span>-DMYSQL_TCP_PORT=<span style="color: rgba(128, 0, 128, 1)">3306</span><span style="color: rgba(0, 0, 0, 1)"> 设置服务器监听端口，默认3306
+</span>-DSYSCONFDIR=/opt/local/mysql/<span style="color: rgba(0, 0, 0, 1)">conf 设置my.cnf所在目录，默认为安装目录
+更多参数执行 # cmake . </span>-LH 或者查看官方说明</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>　　2) 为了安全，需要创建mysql用户组 和mysql用户来运行mysql</p>
+<div class="cnblogs_code">
+<pre>[root@localhost ~<span style="color: rgba(0, 0, 0, 1)">]# groupadd mysql
+[root@localhost </span>~]# useradd -r -g mysql -s /bin/<span style="color: rgba(0, 0, 255, 1)">false</span> mysql   //不用登录</pre>
+</div>
+<p>　　3)创建用户授权</p>
+<div class="cnblogs_code">
+<pre>[root@localhost ~]# useradd -M -s /sbin/<span style="color: rgba(0, 0, 0, 1)">nologin mysql
+[root@localhost </span>~]# mkdir -p /opt/local/mysql/<span style="color: rgba(0, 0, 0, 1)">mydata
+[root@localhost </span>~]# mkdir -p /opt/local/mysql/<span style="color: rgba(0, 0, 0, 1)">conf
+[root@localhost </span>~]# chown -R mysql:mysql /opt/local/mysql</pre>
+</div>
+<p>　　4)将 mysql 的 bin 目录加入环境变量</p>
+<div class="cnblogs_code">
+<pre>[root@localhost mysql-<span style="color: rgba(128, 0, 128, 1)">5.7</span>.<span style="color: rgba(128, 0, 128, 1)">20</span>]# echo <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">export PATH=$PATH:/opt/local/mysql/bin</span><span style="color: rgba(128, 0, 0, 1)">"</span> &gt;&gt; /etc/<span style="color: rgba(0, 0, 0, 1)">profile
+[root@localhost mysql</span>-<span style="color: rgba(128, 0, 128, 1)">5.7</span>.<span style="color: rgba(128, 0, 128, 1)">20</span>]# source /etc/profile</pre>
+</div>
+<p>　　5)修改 /opt/local/mysql/目录的所属组和所属用户</p>
+<div class="cnblogs_code">
+<pre>[root@localhost mysql-<span style="color: rgba(128, 0, 128, 1)">5.7</span>.<span style="color: rgba(128, 0, 128, 1)">20</span>]# chown -R root:mysql /opt/local/mysql/</pre>
+</div>
+<p>　　6) 初始化mysql数据库 会生成一个root用户的密码，需要记住，以后也可以修改</p>
+<div class="cnblogs_code">
+<pre>[root@localhost mysql-<span style="color: rgba(128, 0, 128, 1)">5.7</span>.<span style="color: rgba(128, 0, 128, 1)">20</span>]# mysqld --initialize --user=mysql --basedir=/opt/local/mysql --datadir=/opt/local/mysql/mydata<br><br>//上面那句我没有执行，因为它提示我 /opt/local/mysql/data 文件夹不存在，我执行的是下面这句</pre>
+<pre>[root@localhost mysql-5.7.20]# mysqld --initialize --user=mysql</pre>
+</div>
+<p>　　说明：报了一个错误，如下</p>
+<div class="cnblogs_code">
+<pre>[root@localhost mysql-<span style="color: rgba(128, 0, 128, 1)">5.7</span>.<span style="color: rgba(128, 0, 128, 1)">20</span>]# mysqld --initialize --user=mysql --basedir=/opt/local/mysql --datadir=/opt/local/mysql/<span style="color: rgba(0, 0, 0, 1)">mydata
+</span><span style="color: rgba(128, 0, 128, 1)">2019</span>-<span style="color: rgba(128, 0, 128, 1)">02</span>-28T12:<span style="color: rgba(128, 0, 128, 1)">21</span>:<span style="color: rgba(128, 0, 128, 1)">34</span>.967498Z <span style="color: rgba(128, 0, 128, 1)">0</span> [ERROR] --initialize specified but the data directory has files <span style="color: rgba(0, 0, 255, 1)">in</span><span style="color: rgba(0, 0, 0, 1)"> it. Aborting.
+</span><span style="color: rgba(128, 0, 128, 1)">2019</span>-<span style="color: rgba(128, 0, 128, 1)">02</span>-28T12:<span style="color: rgba(128, 0, 128, 1)">21</span>:<span style="color: rgba(128, 0, 128, 1)">34</span>.967640Z <span style="color: rgba(128, 0, 128, 1)">0</span> [ERROR] Aborting</pre>
+</div>
+<p>　　意思是 data 这个目录必须是空，初始化的时候会自动创建data 目录，可以直接删掉它 ,我的目录是&nbsp;&nbsp;/opt/local/mysql/data</p>
+<p>　　我是怎样错误操作了一波：</p>
+<p>　　但是如果继续执行&nbsp;&nbsp;mysqld --initialize --user=mysql --basedir=/opt/local/mysql --datadir=/opt/local/mysql/mydata 这句话会提示我 data 文件夹不存在，所以我自己创建了一个文件夹，并且附上了mysql:mysql的权限，执行完没有问题，但是这样自己创建的文件夹并没有用，会报很多错误。</p>
+<p>　　所以还是要直接删掉 data 文件夹，让初始化自己创建目录 ，执行这句即可&nbsp;mysqld --initialize --user=mysql&nbsp;</p>
+<p>　　7) 由于MySQL5.7 需要自己创建 my.cnf 文件夹， mysql 默认会启动 /etc/my.cnf 这里的文件。但是呢，我可以换一个位置, 自己创建 my.cnf</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 0, 1)">[root@localhost conf]# pwd
+</span>/opt/local/mysql/<span style="color: rgba(0, 0, 0, 1)">conf
+[root@localhost conf]# ll
+总用量 </span><span style="color: rgba(128, 0, 128, 1)">4</span>
+-rw-r--r--. <span style="color: rgba(128, 0, 128, 1)">1</span> root root <span style="color: rgba(128, 0, 128, 1)">259</span> 2月  <span style="color: rgba(128, 0, 128, 1)">28</span> <span style="color: rgba(128, 0, 128, 1)">06</span>:<span style="color: rgba(128, 0, 128, 1)">57</span><span style="color: rgba(0, 0, 0, 1)"> my.cnf
+[root@localhost conf]#</span></pre>
+</div>
+<p>　　编辑内容如下</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: rgba(0, 0, 0, 1)">[mysqld]
+basedir</span>=/opt/local/<span style="color: rgba(0, 0, 0, 1)">mysql
+datadir</span>=/opt/local/mysql/<span style="color: rgba(0, 0, 0, 1)">data
+pid</span>-file=/opt/local/mysql/data/<span style="color: rgba(0, 0, 0, 1)">mysqld.pid
+socket</span>=/opt/local/mysql/<span style="color: rgba(0, 0, 0, 1)">mysql.sock
+log_error</span>=/opt/local/mysql/data/<span style="color: rgba(0, 0, 0, 1)">mysql.err
+
+user</span>=<span style="color: rgba(0, 0, 0, 1)">mysql
+explicit_defaults_for_timestamp</span>=<span style="color: rgba(0, 0, 255, 1)">true</span><span style="color: rgba(0, 0, 0, 1)">
+skip</span>-grant-tables</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>　　8) 复制启动脚本</p>
+<div class="cnblogs_code">
+<pre>[root@localhost conf]# cp /opt/local/mysql/support-files/mysql.server /etc/init.d/mysql</pre>
+</div>
+<p>　　增加权限：<code class="  language-bash"><span class="token comment">chmod +x /etc/init.d/mysql</span></code></p>
+<p>&nbsp;</p>
+<p>　　9) 启动mysql 时报错了</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(0, 0, 0, 1)">[root@localhost data]# service mysql start
+Starting MySQL.. ERROR</span>! The server quit without updating PID file (/opt/local/mysql/data/<span style="color: rgba(0, 0, 0, 1)">mysqld.pid).
+[root@localhost data]#</span></pre>
+</div>
+<p>　　查看日志/opt/local/mysql/data/mysql.err</p>
+<div class="cnblogs_code">
+<pre><span style="color: rgba(128, 0, 128, 1)">2019</span>-<span style="color: rgba(128, 0, 128, 1)">02</span>-28T12:<span style="color: rgba(128, 0, 128, 1)">42</span>:<span style="color: rgba(128, 0, 128, 1)">35</span>.944689Z <span style="color: rgba(128, 0, 128, 1)">0</span> [ERROR] Can<span style="color: rgba(128, 0, 0, 1)">'</span><span style="color: rgba(128, 0, 0, 1)">t start server: Bind on TCP/IP port: Address already in use</span>
+<span style="color: rgba(128, 0, 128, 1)">2019</span>-<span style="color: rgba(128, 0, 128, 1)">02</span>-28T12:<span style="color: rgba(128, 0, 128, 1)">42</span>:<span style="color: rgba(128, 0, 128, 1)">35</span>.944693Z <span style="color: rgba(128, 0, 128, 1)">0</span> [ERROR] Do you already have another mysqld server running on port: <span style="color: rgba(128, 0, 128, 1)">3306</span> ?</pre>
+</div>
+<p>　　端口号被使用了</p>
+<div class="cnblogs_code">
+<pre>[root@localhost data]# netstat -anp | grep <span style="color: rgba(128, 0, 128, 1)">3306</span><span style="color: rgba(0, 0, 0, 1)">
+tcp6       </span><span style="color: rgba(128, 0, 128, 1)">0</span>      <span style="color: rgba(128, 0, 128, 1)">0</span> :::<span style="color: rgba(128, 0, 128, 1)">3306</span>                 :::*                    LISTEN      <span style="color: rgba(128, 0, 128, 1)">97682</span>/<span style="color: rgba(0, 0, 0, 1)">mysqld
+[root@localhost data]#</span></pre>
+</div>
+<p>　　杀死进程，重新启动</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre>[root@localhost data]# kill -s <span style="color: rgba(128, 0, 128, 1)">9</span> <span style="color: rgba(128, 0, 128, 1)">97682</span><span style="color: rgba(0, 0, 0, 1)">
+[root@localhost data]# </span>/opt/local/mysql/bin/mysqld_safe: line <span style="color: rgba(128, 0, 128, 1)">198</span>: <span style="color: rgba(128, 0, 128, 1)">97682</span> Killed                  nohup /opt/local/mysql/bin/mysqld --basedir=/opt/local/mysql --datadir=/opt/local/mysql/data --plugin-dir=/opt/local/mysql/lib/plugin --user=mysql --log-error=/opt/local/mysql/data/mysql.err --pid-file=/opt/local/mysql/data/mysqld.pid --socket=/opt/local/mysql/mysql.sock &lt; /dev/<span style="color: rgba(0, 0, 255, 1)">null</span> &gt; /dev/<span style="color: rgba(0, 0, 255, 1)">null</span> <span style="color: rgba(128, 0, 128, 1)">2</span>&gt;&amp;<span style="color: rgba(128, 0, 128, 1)">1</span><span style="color: rgba(0, 0, 0, 1)">
+
+[root@localhost data]#
+[root@localhost data]# service mysql start
+Starting MySQL.. SUCCESS</span>!<span style="color: rgba(0, 0, 0, 1)">
+[root@localhost data]#</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>　　成功进入mysql</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: rgba(0, 0, 0, 1)">[root@localhost data]# mysql
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id </span><span style="color: rgba(0, 0, 255, 1)">is</span> <span style="color: rgba(128, 0, 128, 1)">3</span><span style="color: rgba(0, 0, 0, 1)">
+Server version: </span><span style="color: rgba(128, 0, 128, 1)">5.7</span>.<span style="color: rgba(128, 0, 128, 1)">20</span><span style="color: rgba(0, 0, 0, 1)"> Source distribution
+
+Copyright (c) </span><span style="color: rgba(128, 0, 128, 1)">2000</span>, <span style="color: rgba(128, 0, 128, 1)">2017</span>, Oracle and/<span style="color: rgba(0, 0, 0, 1)">or its affiliates. All rights reserved.
+
+Oracle </span><span style="color: rgba(0, 0, 255, 1)">is</span> a registered trademark of Oracle Corporation and/<span style="color: rgba(0, 0, 0, 1)">or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type </span><span style="color: rgba(128, 0, 0, 1)">'</span><span style="color: rgba(128, 0, 0, 1)">help;</span><span style="color: rgba(128, 0, 0, 1)">'</span> or <span style="color: rgba(128, 0, 0, 1)">'</span><span style="color: rgba(128, 0, 0, 1)">\h</span><span style="color: rgba(128, 0, 0, 1)">'</span> <span style="color: rgba(0, 0, 255, 1)">for</span> help. Type <span style="color: rgba(128, 0, 0, 1)">'</span><span style="color: rgba(128, 0, 0, 1)">\c</span><span style="color: rgba(128, 0, 0, 1)">'</span><span style="color: rgba(0, 0, 0, 1)"> to clear the current input statement.
+
+mysql</span>&gt;</pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;</p>
+<p>到此lnmp安装结束咯~　　</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>　　</p>
+<p>&nbsp; &nbsp;&nbsp;</p>
+<p>　　</p>
+<p>　</p>
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block"><div id="BlogPostCategory">
+    分类: 
+            <a href="https://www.cnblogs.com/dump/category/1101255.html" target="_blank">Linux</a>,             <a href="https://www.cnblogs.com/dump/category/1101258.html" target="_blank">PHP</a></div>
+
+
+    <div id="blog_post_info">
+<div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(10329850,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+        <a id="green_channel_follow" onclick="follow(&#39;532bcbca-5c56-4f17-377a-08d4ef52ecb6&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="https://home.cnblogs.com/u/dump/" target="_blank"><img src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/20171023111049.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="https://home.cnblogs.com/u/dump/">清零者</a><br>
+            <a href="https://home.cnblogs.com/u/dump/followees/">关注 - 24</a><br>
+            <a href="https://home.cnblogs.com/u/dump/followers/">粉丝 - 29</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;532bcbca-5c56-4f17-377a-08d4ef52ecb6&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(10329850,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">1</span>
+    </div>
+    <div class="buryit" onclick="votePost(10329850,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+    <div class="clear"></div>
+    <div id="post_next_prev">
+
+    <a href="https://www.cnblogs.com/dump/p/10318629.html" class="p_n_p_prefix">« </a> 上一篇：    <a href="https://www.cnblogs.com/dump/p/10318629.html" title="发布于 2019-01-25 11:19">Mac安装虚拟机</a>
+    <br>
+    <a href="https://www.cnblogs.com/dump/p/10385107.html" class="p_n_p_prefix">» </a> 下一篇：    <a href="https://www.cnblogs.com/dump/p/10385107.html" title="发布于 2019-02-15 18:06">PHP去调用jenkins</a>
+
+</div>
+</div>
+		</div>
+		<div class="postDesc">posted @ 
+<span id="post-date">2019-01-29 18:08</span>&nbsp;
+<a href="https://www.cnblogs.com/dump/">清零者</a>&nbsp;
+阅读(<span id="post_view_count">3379</span>)&nbsp;
+评论(<span id="post_comment_count">1</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=10329850" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(10329850);return false;">收藏</a></div>
+	</div>
+	
+	
+</div>
+<script src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/highlight.min.js.下载"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 389950, cb_blogApp = 'dump', cb_blogUserGuid = '532bcbca-5c56-4f17-377a-08d4ef52ecb6';
+    var cb_entryId = 10329850, cb_entryCreatedDate = '2019-01-29 18:08', cb_postType = 1;
+    loadViewCount(cb_entryId);
+</script>
+<a name="!comments"></a>
+<div id="blog-comments-placeholder">
+
+<div id="comment_pager_top">
+    
+</div>
+
+<!--done-->
+<br>
+<div class="feedback_area_title">
+    Post Comment</div>
+<div class="feedbackNoItems">
+    <div class="feedbackNoItems"></div>
+</div>
+    <div class="feedbackItem">
+        <div class="feedbackListSubtitle">
+            <div class="feedbackManage">
+                
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+            </div>
+            
+<a href="https://www.cnblogs.com/dump/p/10329850.html#4501233" class="layer">#1楼</a>
+<a name="4501233" id="comment_anchor_4501233"></a>
+    <span id="comment-maxId" style="display: none">4501233</span>
+    <span id="comment-maxDate" style="display: none">2020/2/20 上午2:00:53</span>
+
+<span class="comment_date">2020-02-20 02:00</span>
+
+
+            |
+            
+        <a id="a_comment_author_4501233" href="https://home.cnblogs.com/u/1777882/" target="_blank">quewn</a>
+
+        </div>
+        <div class="feedbackCon">
+            
+<div id="comment_body_4501233" data-format-type="Ubb" class="blog_comment_body cnblogs-ubb">
+    博主讲的很好！谢谢 学习了！
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(4501233, &#39;Digg&#39;, this.parentElement, false);">
+                支持(0)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(4501233, &#39;Bury&#39;, this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        
+<br>
+        </div>
+    </div>
+
+<div id="comment_pager_bottom">
+    
+</div>
+
+
+</div>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="https://www.cnblogs.com/dump/p/10329850.html#" onclick="return RefreshPage();">刷新页面</a><a href="https://www.cnblogs.com/dump/p/10329850.html#top">返回顶部</a></div>
+    <div id="comment_form_container" style="visibility: visible;"><div class="login_tips">
+    登录后才能发表评论，立即 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或
+    <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，
+    <a href="https://www.cnblogs.com/">访问</a> 网站首页
+</div>
+<div class="under-comment-nav under-comment-box-nav">
+        <a href="https://brands.cnblogs.com/aws/free" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-login-tip-aws&#39;)">【福利】博客园派送云上免费午餐，AWS注册立享12个月免费套餐</a>
+</div></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"><a href="http://www.softbam.com/index.htm" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-ucancode&#39;)">【推荐】超50万行C++/C#: 大型组态工控、电力仿真CAD与GIS源码库</a><br><a href="https://www.cnblogs.com/himmr/p/13901990.html" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-Himmr&#39;)">【推荐】博客园 &amp; 陌上花开HIMMR 给单身的程序员小哥哥助力脱单啦～</a><br><a href="http://click.aliyun.com/m/1000196436/" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-阿里云双11&#39;)">【推荐】 阿里云双十一上云狂欢节，0.73折起爆品提前开抢</a><br><a href="https://brands.cnblogs.com/agora" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-声网专区&#39;)">【推荐】未知数的距离，毫秒间的传递，声网与你实时互动</a><br></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1592365906576-0" style="width: 300px; height: 250px;" data-google-query-id="CLvjlZ_L4-wCFRFevQodew8P3Q"><div id="google_ads_iframe_/1090369/C1_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C1_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C1_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" data-google-container-id="1" style="border: 0px; vertical-align: bottom;" data-load-complete="true" src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/saved_resource.html"></iframe></div></div>
+    </div>
+    <div id="under_post_news"><div class="recomm-block"><b>相关博文：</b><br>·  <a title="lnmp" href="https://www.cnblogs.com/kriskris/p/12089611.html" target="_blank" onclick="clickRecomItmem(12089611)">lnmp</a><br>·  <a title="LNMP（5）" href="https://www.cnblogs.com/yizhangheka/p/12076716.html" target="_blank" onclick="clickRecomItmem(12076716)">LNMP（5）</a><br>·  <a title="lnmp" href="https://www.cnblogs.com/gaiting/p/12020791.html" target="_blank" onclick="clickRecomItmem(12020791)">lnmp</a><br>·  <a title="centos7搭建lnmp" href="https://www.cnblogs.com/sswind/p/11996629.html" target="_blank" onclick="clickRecomItmem(11996629)">centos7搭建lnmp</a><br>·  <a title="LNMP+memcached" href="https://www.cnblogs.com/security-guard/p/12068507.html" target="_blank" onclick="clickRecomItmem(12068507)">LNMP+memcached</a><br>»  <a target="_blank" href="https://recomm.cnblogs.com/blogpost/10329850">更多推荐...</a></div></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1592366332455-0" style="width: 468px; height: 60px;" data-google-query-id="CLzjlZ_L4-wCFRFevQodew8P3Q"><div id="google_ads_iframe_/1090369/C2_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C2_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C2_0" width="468" height="60" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" data-google-container-id="2" style="border: 0px; vertical-align: bottom;" data-load-complete="true" src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/saved_resource(1).html"></iframe></div></div>
+    </div>
+    <div id="under_post_kb">
+<div class="itnews c_ad_block">
+    <b>最新 IT 新闻</b>:
+    <br>
+ ·          <a href="https://news.cnblogs.com/n/676388/" target="_blank">华为 FreeBuds Studio 无线头戴降噪耳机体验：预料之内，亦有惊喜</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/676387/" target="_blank">苹果开发 Google 搜索的替代</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/676386/" target="_blank">洪门与快手：江湖处处是陷阱</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/676385/" target="_blank">刘强东：青帆过明州，“隐退”深几许</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/676384/" target="_blank">唱唱反调，大一统下的USB-C也隐藏着「几宗罪」</a>
+        <br>
+    » <a href="https://news.cnblogs.com/" title="IT 新闻" target="_blank">更多新闻...</a>
+</div></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+       var commentManager = new blogCommentManager();
+       commentManager.renderComments(0);
+       fixPostBody();
+       deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);       deliverT2();
+       deliverC1C2();
+       loadNewsAndKb();
+       loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);       LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+       GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+       loadOptUnderPost();
+       GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+   </script>
+</div>
+
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			<div id="sidebar_news" class="newsItem"><!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	
+<div id="blog-news">
+    
+    <div id="profile_block">
+        昵称：
+        <a href="https://home.cnblogs.com/u/dump/">
+            清零者
+        </a>
+        <br>
+        园龄：
+        <a href="https://home.cnblogs.com/u/dump/" title="入园时间：2017-10-23">
+            3年
+        </a>
+        <br>
+        粉丝：
+        <a href="https://home.cnblogs.com/u/dump/followers/">
+            29
+        </a>
+        <br>
+        关注：
+        <a href="https://home.cnblogs.com/u/dump/followees/">
+            24
+        </a>
+        <div id="p_b_follow">
+<a href="javascript:void(0)" onclick="follow(&#39;532bcbca-5c56-4f17-377a-08d4ef52ecb6&#39;)">+加关注</a></div>
+        <script>getFollowStatus('532bcbca-5c56-4f17-377a-08d4ef52ecb6');</script>
+    </div>
+</div>
+</div>
+
+</div>
+<div id="sidebar_ad"></div>
+			<div id="calendar"><div id="calendar"><div id="blog-calendar" style="">
+
+<table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar" border="0">
+    <tbody>
+        <tr>
+            <td colspan="7">
+                <table class="CalTitle" cellspacing="0" border="0">
+                    <tbody>
+                        <tr>
+                            <td class="CalNextPrev">
+                                <a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2020/10/02&#39;); return false;">&lt;</a>
+                            </td>
+                            <td align="center">2020年11月</td>
+                            <td align="right" class="CalNextPrev">
+                                <a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2020/12/02&#39;); return false;">&gt;</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    <tr>
+        <th class="CalDayHeader" align="center" abbr="日" scope="col">日</th>
+        <th class="CalDayHeader" align="center" abbr="一" scope="col">一</th>
+        <th class="CalDayHeader" align="center" abbr="二" scope="col">二</th>
+        <th class="CalDayHeader" align="center" abbr="三" scope="col">三</th>
+        <th class="CalDayHeader" align="center" abbr="四" scope="col">四</th>
+        <th class="CalDayHeader" align="center" abbr="五" scope="col">五</th>
+        <th class="CalDayHeader" align="center" abbr="六" scope="col">六</th>
+    </tr>
+            <tr>
+                        <td class="CalWeekendDay" align="center">
+                            1
+                        </td>
+                        <td class="CalTodayDay" align="center">
+                            2
+                        </td>
+                        <td class="" align="center">
+                            3
+                        </td>
+                        <td class="" align="center">
+                            4
+                        </td>
+                        <td class="" align="center">
+                            5
+                        </td>
+                        <td class="" align="center">
+                            6
+                        </td>
+                    <td class="CalWeekendDay" align="center">
+                        7
+                    </td>
+            </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            8
+                        </td>
+                            <td class="" align="center">
+                                9
+                            </td>
+                            <td class="" align="center">
+                                10
+                            </td>
+                            <td class="" align="center">
+                                11
+                            </td>
+                            <td class="" align="center">
+                                12
+                            </td>
+                            <td class="" align="center">
+                                13
+                            </td>
+                        <td class="CalWeekendDay" align="center">
+                            14
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            15
+                        </td>
+                            <td class="" align="center">
+                                16
+                            </td>
+                            <td class="" align="center">
+                                17
+                            </td>
+                            <td class="" align="center">
+                                18
+                            </td>
+                            <td class="" align="center">
+                                19
+                            </td>
+                            <td class="" align="center">
+                                20
+                            </td>
+                        <td class="CalWeekendDay" align="center">
+                            21
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            22
+                        </td>
+                            <td class="" align="center">
+                                23
+                            </td>
+                            <td class="" align="center">
+                                24
+                            </td>
+                            <td class="" align="center">
+                                25
+                            </td>
+                            <td class="" align="center">
+                                26
+                            </td>
+                            <td class="" align="center">
+                                27
+                            </td>
+                        <td class="CalWeekendDay" align="center">
+                            28
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            29
+                        </td>
+                            <td class="" align="center">
+                                30
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                1
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                2
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                3
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                4
+                            </td>
+                        <td class="CalOtherMonthDay" align="center">
+                            5
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalOtherMonthDay" align="center">
+                            6
+                        </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                7
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                8
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                9
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                10
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                11
+                            </td>
+                        <td class="CalOtherMonthDay" align="center">
+                            12
+                        </td>
+                </tr>
+    </tbody>
+</table></div></div>                
+                    <script>loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><!-- 搜索 -->
+<div id="sidebar_search" class="sidebar-block">
+    <div id="sidebar_search" class="mySearch">
+        <h3 class="catListTitle">搜索</h3>
+        <div id="sidebar_search_box">
+            <div id="widget_my_zzk" class="div_my_zzk">
+                <input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk">
+            </div>
+            <div id="widget_my_google" class="div_my_zzk">
+                <input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 常用链接 -->
+<div id="sidebar_shortcut" class="sidebar-block">
+</div>
+
+<!-- 最新随笔 -->
+
+
+<!-- 我的标签 -->
+<div id="sidebar_toptags" class="sidebar-block"><div class="catListTag">
+<h3 class="catListTitle">My Tags</h3>
+<ul>
+        <li>
+            <a href="https://www.cnblogs.com/dump/tag/%E3%80%8Alinux%E9%AB%98%E6%80%A7%E8%83%BD%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BC%96%E7%A8%8B%E3%80%8B/">《linux高性能服务器编程》<span class="tag-count">(9)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/dump/tag/redis/">redis<span class="tag-count">(3)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/dump/tag/ES6/">ES6<span class="tag-count">(2)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/dump/tag/go/">go<span class="tag-count">(1)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/dump/tag/CDN/">CDN<span class="tag-count">(1)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/dump/tag/CentOs/">CentOs<span class="tag-count">(1)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/dump/tag/Composer/">Composer<span class="tag-count">(1)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/dump/tag/DNS/">DNS<span class="tag-count">(1)</span></a>
+        </li>
+    
+
+</ul>
+</div>
+
+</div>
+
+<!-- 积分与排名 -->
+
+
+<!-- 随笔分类、随笔档案、文章分类、新闻分类、相册、链接 -->
+<div id="sidebar_categories">
+<div class="catListPostCategory">
+<h3 class="catListTitle">
+随笔分类
+
+
+</h3>
+
+
+<ul>
+
+<li>
+<a href="https://www.cnblogs.com/dump/category/1137502.html" rel="" target="">
+    CDN/DNS原理和应用(2)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/category/1525250.html" rel="" target="">
+    go(1)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/category/1101253.html" rel="" target="">
+    Html5-CSS3(1)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/category/1101254.html" rel="" target="">
+    JavaScript(2)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/category/1101255.html" rel="" target="">
+    Linux(14)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/category/1101258.html" rel="" target="">
+    PHP(12)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/category/1101259.html" rel="" target="">
+    Python(6)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/category/1135600.html" rel="" target="">
+    Redis(5)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/category/1138696.html" rel="" target="">
+    Session/Cookie(1)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/category/1101261.html" rel="" target="">
+    TCP/IP(6)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/category/1153166.html" rel="" target="">
+    Yaf(2)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/category/1137337.html" rel="" target="">
+    分布式架构(3)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/category/1101264.html" rel="" target="">
+    前端框架(3)
+</a>
+ 
+</li>
+
+</ul>
+
+
+</div>
+<div class="catListPostArchive">
+<h3 class="catListTitle">
+随笔档案
+
+
+</h3>
+
+
+<ul>
+
+<li>
+<a href="https://www.cnblogs.com/dump/archive/2020/03.html" rel="" target="">
+    2020年3月(1)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/archive/2019/12.html" rel="" target="">
+    2019年12月(1)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/archive/2019/08.html" rel="" target="">
+    2019年8月(1)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/archive/2019/07.html" rel="" target="">
+    2019年7月(9)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/archive/2019/02.html" rel="" target="">
+    2019年2月(3)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/archive/2019/01.html" rel="" target="">
+    2019年1月(3)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/archive/2018/10.html" rel="" target="">
+    2018年10月(1)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/archive/2018/09.html" rel="" target="">
+    2018年9月(2)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/archive/2018/08.html" rel="" target="">
+    2018年8月(4)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/archive/2018/07.html" rel="" target="">
+    2018年7月(1)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/archive/2018/06.html" rel="" target="">
+    2018年6月(3)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/archive/2018/03.html" rel="" target="">
+    2018年3月(6)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/archive/2018/02.html" rel="" target="">
+    2018年2月(2)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/archive/2018/01.html" rel="" target="">
+    2018年1月(9)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/archive/2017/12.html" rel="" target="">
+    2017年12月(9)
+</a>
+ 
+</li>
+<li>
+<a href="https://www.cnblogs.com/dump/archive/2017/10.html" rel="" target="">
+    2017年10月(3)
+</a>
+ 
+</li>
+
+</ul>
+
+
+</div>
+
+</div>
+
+<!-- 最新评论 -->
+<div id="sidebar_recentcomments" class="sidebar-block"><div class="catListComment">
+<h3 class="catListTitle">Recent Comments</h3>
+
+	<div class="RecentCommentBlock">
+        <ul>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/dump/p/8243868.html">1. Re:PHP消息队列实现及应用</a></li>
+                    <li class="recent_comment_body"><p>逻辑思想写的还是清楚的，学习了，谢谢楼主！感恩，不过不知道能不能提供一下幕课网这个消息队列的学习网址。特别需要深入一点的学习这个消息队列，望回</p>
+</li>
+                    <li class="recent_comment_author">--xhy1996</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/dump/p/10329850.html">2. Re:Linux下编译安装Lnmp</a></li>
+                    <li class="recent_comment_body">博主讲的很好！谢谢 学习了！</li>
+                    <li class="recent_comment_author">--quewn</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/dump/p/8243868.html">3. Re:PHP消息队列实现及应用</a></li>
+                    <li class="recent_comment_body">谢谢。</li>
+                    <li class="recent_comment_author">--秋风无叶</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/dump/p/8243868.html">4. Re:PHP消息队列实现及应用</a></li>
+                    <li class="recent_comment_body">@ shawbin你好，谢谢你的点评。这只是本人的学习记录，我不会在细节上纠结。所以文章并没有做传教的意思。...</li>
+                    <li class="recent_comment_author">--清零者</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/dump/p/8243868.html">5. Re:PHP消息队列实现及应用</a></li>
+                    <li class="recent_comment_body">@ 伤心de鱼亲，我开头就已经说明了来自慕课网的学习笔记。...</li>
+                    <li class="recent_comment_author">--清零者</li>
+        </ul>
+    </div>
+</div>
+
+</div>
+
+
+<!-- 阅读排行榜 -->
+<div id="sidebar_topviewedposts" class="sidebar-block"><div class="catListView">
+<h3 class="catListTitle">Top Posts</h3>
+	<div id="TopViewPostsBlock">
+        <ul style="word-break:break-all">
+                    <li>
+                        <a href="https://www.cnblogs.com/dump/p/7716823.html">
+                            1. Linux中zip压缩和unzip解压缩命令详解(70137)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/dump/p/8243868.html">
+                            2. PHP消息队列实现及应用(44353)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/dump/p/9238543.html">
+                            3. 本地如何连接虚拟机上的MySql(20568)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/dump/p/8125539.html">
+                            4. 图解分布式架构的演进(18652)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/dump/p/8268285.html">
+                            5. PHP正则表达式函数学习(8425)
+                        </a>
+                    </li>
+        </ul>
+    </div>
+</div>
+
+</div>
+
+<!-- 评论排行榜 -->
+<div id="sidebar_topcommentedposts" class="sidebar-block"><!--
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock">
+        <ul style="word-break:break-all">
+                    <li>
+                        <a href="https://www.cnblogs.com/dump/p/8243868.html">
+                            1. PHP消息队列实现及应用(6)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/dump/p/10329850.html">
+                            2. Linux下编译安装Lnmp(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/dump/p/8125539.html">
+                            3. 图解分布式架构的演进(1)
+                        </a>
+                    </li>
+        </ul>
+    </div>
+</div>
+-->
+
+</div>
+
+<!-- 推荐排行榜 -->
+<div id="sidebar_topdiggedposts" class="sidebar-block">
+<div id="topdigg_posts_wrap">
+    <div class="catListView">
+        <h3 class="catListTitle">推荐排行榜</h3>
+        <div id="TopDiggPostsBlock">
+            <ul style="word-break: break-all">
+                        <li>
+                            <a href="https://www.cnblogs.com/dump/p/8243868.html">
+                                1. PHP消息队列实现及应用(6)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/dump/p/8125539.html">
+                                2. 图解分布式架构的演进(3)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/dump/p/10329850.html">
+                                3. Linux下编译安装Lnmp(1)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/dump/p/9833964.html">
+                                4. npm install 报错Unexpected end of JSON input while parsing near...(1)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/dump/p/9238543.html">
+                                5. 本地如何连接虚拟机上的MySql(1)
+                            </a>
+                        </li>
+            </ul>
+        </div>
+    </div>
+</div></div></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright © 2020 清零者
+<br><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+
+
+<div class="xl-chrome-ext-bar" id="xl_chrome_ext_{4DB361DE-01F7-4376-B494-639E489D19ED}" style="display: none;">
+      <div class="xl-chrome-ext-bar__logo"></div>
+
+      <a id="xl_chrome_ext_download" href="javascript:;" class="xl-chrome-ext-bar__option">下载视频</a>
+      <a id="xl_chrome_ext_close" href="javascript:;" class="xl-chrome-ext-bar__close"></a>
+    </div><iframe id="google_osd_static_frame_6644949812916" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="./Linux下编译安装Lnmp - 清零者 - 博客园_files/saved_resource(2).html"></iframe></body></html>
