@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)https://www.cnblogs.com/sxmny/p/11224842.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="origin">
+    <meta name="description" content="方式一 CentOS： 方式二 #开放端口:8080 /sbin/iptables -I INPUT -p tcp --dport 8080 -j ACCEPT 方式三 -A INPUT -m sta">
+    <meta property="og:description" content="方式一 CentOS： 方式二 #开放端口:8080 /sbin/iptables -I INPUT -p tcp --dport 8080 -j ACCEPT 方式三 -A INPUT -m sta">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>linux开放指定端口命令 - 伤心木乃伊 - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="https://common.cnblogs.com/favicon.svg" type="image/svg+xml">
+    
+    <link rel="stylesheet" href="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/blog-common.min.css">
+    <link id="MainCss" rel="stylesheet" href="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/bundle-simpleblue.min.css">
+    
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/bundle-simpleblue-mobile.min.css">
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/sxmny/rss">
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/sxmny/rsd.xml">
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/sxmny/wlwmanifest.xml">
+    <script src="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/osd.js.下载"></script><script async="" src="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/analytics.js.下载"></script><script type="text/javascript" src="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/encoder.js.下载"></script><script>
+        var currentBlogId = 91600;
+        var currentBlogApp = 'sxmny';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'SimpleBlue';
+        var visitorUserId = '';
+    </script>
+        <script>
+            var currentPostDateAdded = '2019-07-22 11:31';
+        </script>
+    <script src="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/jquery-2.2.0.min.js.下载"></script>
+    <script src="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/blog-common.min.js.下载"></script>
+    
+    
+    
+<script src="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/pubads_impl_2020102901.js.下载" async=""></script><link rel="preload" href="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/f.txt" as="script"><script type="text/javascript" src="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/f.txt"></script><link rel="prefetch" href="https://0537fd73c52eef6cce3f994c51edf387.safeframe.googlesyndication.com/safeframe/1-0-37/html/container.html"></head>
+<body class="has-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding"><a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/logo.svg" alt="博客园Logo"></a></li>
+                <li><a href="https://www.cnblogs.com/" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;skin-navbar-sitehome&#39;)">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;skin-navbar-news&#39;)">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;skin-navbar-q&#39;)">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;skin-navbar-brands&#39;)">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;skin-navbar-ing&#39;)">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;skin-navbar-edu&#39;)">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3">
+                        <button type="submit" id="zzk_search_button">
+                            <img src="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/search.svg" alt="搜索">
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客" style="display: none;">
+                        <img id="myblog_icon" class="navbar-icon" src="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/myblog.svg" alt="我的博客">
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息" style="display: none;">
+                        <img id="msg_icon" class="navbar-icon" src="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/message.svg" alt="短消息">
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown" style="display: none;">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/avatar-default.svg" alt="用户头像">
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/" style="display: inline;">注册</a>
+                    <a class="navbar-anonymous" href="javascript:void(0);" onclick="login()" style="display: inline;">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+    <div id="home">
+    <div id="header">
+        <div id="blogTitle">
+            
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/sxmny/">bug张</a>
+</div>
+<div class="subtitle">
+毕业之后三年之内证明自己能在it界混，2011-2013
+</div>
+
+        </div>
+        <div id="navigator">
+            
+<ul id="navList">
+    <li id="nav_sitehome"><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">
+博客园</a>
+</li>
+    <li id="nav_myhome">
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/sxmny/">
+首页</a>
+</li>
+    <li id="nav_newpost">
+
+<a id="blog_nav_newpost" class="menu" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">
+新随笔</a>
+</li>
+    <li id="nav_contact">
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E4%BC%A4%E5%BF%83%E6%9C%A8%E4%B9%83%E4%BC%8A">
+联系</a></li>
+    <li id="nav_rss">
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/sxmny/rss/">
+订阅</a></li>
+    <li id="nav_admin">
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+            <div class="blogStats">
+                
+<span id="stats_post_count">随笔 - 
+119&nbsp;</span>
+<span id="stats_article_count">文章 - 
+19&nbsp;</span>
+<!-- <span id="stats-comment_count"></span> -->
+<span id="stats_comment_count">评论 - 
+28</span>
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div id="mainContent">
+            <div class="forFlow">
+                <div id="post_detail">
+    <div id="topics">
+        <div class="post">
+            <h1 class="postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/sxmny/p/11224842.html">
+    <span>linux开放指定端口命令</span>
+    
+
+
+</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body">
+    <p>方式一</p>
+<p>　　CentOS：</p>
+<div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div>
+<pre><span style="color: rgba(0, 0, 0, 1)">1、开启防火墙&nbsp;
+&nbsp; &nbsp; systemctl start firewalld
+
+2、开放指定端口
+&nbsp; &nbsp; &nbsp; firewall-cmd --zone=public --add-port=1935/tcp --permanent
+&nbsp;命令含义：
+--zone #作用域
+--add-port=1935/tcp&nbsp; #添加端口，格式为：端口/通讯协议
+--permanent&nbsp; #永久生效，没有此参数重启后失效
+
+3、重启防火墙
+&nbsp; &nbsp; &nbsp; firewall-cmd --reload
+
+4、查看端口号
+netstat -ntlp&nbsp; &nbsp;//查看当前所有tcp端口·
+
+netstat -ntulp |grep 1935&nbsp; &nbsp;//查看所有1935端口使用情况·</span></pre>
+<div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/copycode.gif" alt="复制代码"></a></span></div></div>
+<p>&nbsp;方式二<br>&nbsp;</p>
+<p>#开放端口:8080</p>
+<p>/sbin/iptables -I INPUT -p tcp --dport 8080 -j ACCEPT</p>
+<p>&nbsp;</p>
+<p>方式三</p>
+<p>-A INPUT -m state --state NEW -m tcp -p tcp --dport 8080 -j ACCEPT</p>
+<p>service iptables restart</p>
+<p>&nbsp;</p>
+<p>ubuntu 没有安装 iptables的参考如下&nbsp;</p>
+<p><a href="https://www.cnblogs.com/kxm87/p/9561054.html">https://www.cnblogs.com/kxm87/p/9561054.html</a>&nbsp;</p>
+<p>&nbsp;</p>
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block"><div id="BlogPostCategory">
+    分类: 
+            <a href="https://www.cnblogs.com/sxmny/category/1508705.html" target="_blank">linux</a></div>
+
+
+    <div id="blog_post_info">
+<div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(11224842,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+        <a id="green_channel_follow" onclick="follow(&#39;bf4b4ca4-2f90-e011-a53f-842b2b196315&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="https://home.cnblogs.com/u/sxmny/" target="_blank"><img src="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/u306423.jpg" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="https://home.cnblogs.com/u/sxmny/">伤心木乃伊</a><br>
+            <a href="https://home.cnblogs.com/u/sxmny/followees/">关注 - 1</a><br>
+            <a href="https://home.cnblogs.com/u/sxmny/followers/">粉丝 - 6</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;bf4b4ca4-2f90-e011-a53f-842b2b196315&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(11224842,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">5</span>
+    </div>
+    <div class="buryit" onclick="votePost(11224842,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+    <div class="clear"></div>
+    <div id="post_next_prev">
+
+    <a href="https://www.cnblogs.com/sxmny/p/11193719.html" class="p_n_p_prefix">« </a> 上一篇：    <a href="https://www.cnblogs.com/sxmny/p/11193719.html" title="发布于 2019-07-16 11:22">word paf转html 等</a>
+    <br>
+    <a href="https://www.cnblogs.com/sxmny/p/11226572.html" class="p_n_p_prefix">» </a> 下一篇：    <a href="https://www.cnblogs.com/sxmny/p/11226572.html" title="发布于 2019-07-22 16:19">docker  linux基本操作</a>
+
+</div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2019-07-22 11:31</span>&nbsp;
+<a href="https://www.cnblogs.com/sxmny/">伤心木乃伊</a>&nbsp;
+阅读(<span id="post_view_count">94845</span>)&nbsp;
+评论(<span id="post_comment_count">1</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=11224842" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(11224842);return false;">收藏</a></div>
+        </div>
+        <script src="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/highlight.min.js.下载"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 91600, cb_blogApp = 'sxmny', cb_blogUserGuid = 'bf4b4ca4-2f90-e011-a53f-842b2b196315';
+    var cb_entryId = 11224842, cb_entryCreatedDate = '2019-07-22 11:31', cb_postType = 1;
+    loadViewCount(cb_entryId);
+</script>
+        <a name="!comments"></a>
+<div id="blog-comments-placeholder">
+
+<div id="comment_pager_top">
+    
+</div>
+
+
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>
+
+    <div class="feedbackItem">
+        <div class="feedbackListSubtitle">
+            <div class="feedbackManage">
+                &nbsp;&nbsp;
+                
+
+<span class="comment_actions">
+    
+    
+    
+    
+</span>
+
+
+            </div>
+            <!-- Title -->
+            
+<a href="https://www.cnblogs.com/sxmny/p/11224842.html#4679289" class="layer">#1楼</a>
+<a name="4679289" id="comment_anchor_4679289"></a>
+    <span id="comment-maxId" style="display: none">4679289</span>
+    <span id="comment-maxDate" style="display: none">2020/9/9 下午3:17:17</span>
+
+            <!-- PostDate -->
+            
+<span class="comment_date">2020-09-09 15:17</span>
+
+
+            <!--NameLink-->
+            
+        <a id="a_comment_author_4679289" href="https://home.cnblogs.com/u/2144177/" target="_blank">hsxas</a>
+
+            <div class="feedbackCon">
+                
+<div id="comment_body_4679289" data-format-type="Markdown" class="blog_comment_body cnblogs-markdown">
+    <p>帅</p>
+
+</div>
+        <div class="comment_vote">
+            <span class="comment_error" style="color: red"></span>
+            <a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(4679289, &#39;Digg&#39;, this.parentElement, false);">
+                支持(0)
+            </a>
+            <a href="javascript:void(0);" class="comment_burry" onclick="return voteComment(4679289, &#39;Bury&#39;, this.parentElement, false);">
+                反对(0)
+            </a>
+        </div>
+        
+
+            </div>
+        </div>
+    </div>
+
+
+<div id="comment_pager_bottom">
+    
+</div>
+</div>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="https://www.cnblogs.com/sxmny/p/11224842.html#" onclick="return RefreshPage();">刷新页面</a><a href="https://www.cnblogs.com/sxmny/p/11224842.html#top">返回顶部</a></div>
+    <div id="comment_form_container" style="visibility: visible;"><div class="login_tips">
+    登录后才能发表评论，立即 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或
+    <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，
+    <a href="https://www.cnblogs.com/">访问</a> 网站首页
+</div>
+<div class="under-comment-nav under-comment-box-nav">
+        <a href="https://brands.cnblogs.com/aws/free" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-login-tip-aws&#39;)">【福利】博客园派送云上免费午餐，AWS注册立享12个月免费套餐</a>
+</div></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"><a href="http://www.softbam.com/index.htm" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-ucancode-1103&#39;)">【免费下载】News: 大型组态、工控、仿真、CAD\GIS 50万行VC++源码!</a><br><a href="https://edu.51cto.com/activity/37.html?utm_platform=pc&amp;utm_source=mianfei&amp;utm_medium=zhannei&amp;utm_content=%E7%B2%BE%E5%9F%B9&amp;rtm_plan=%E6%96%87%E5%AD%97%E9%93%BE%E4%B8%80&amp;rtm_unit=&amp;rtm_keyword=&amp;rtm_frd=1111" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-51CTO-双11活动&#39;)">【推荐】#双11学习节# IT技能、厂商认证、软考、PMP，多款好课为你战斗力加持</a><br><a href="https://www.cnblogs.com/himmr/p/13901990.html" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-Himmr&#39;)">【推荐】博客园 &amp; 陌上花开HIMMR 给单身的程序员小哥哥助力脱单啦～</a><br><a href="http://click.aliyun.com/m/1000196436/" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-阿里云双11&#39;)">【推荐】 阿里云双十一上云狂欢节，0.73折起爆品提前开抢</a><br><a href="https://brands.cnblogs.com/agora" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-声网专区&#39;)">【推荐】未知数的距离，毫秒间的传递，声网与你实时互动</a><br><a href="https://brands.cnblogs.com/huawei" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-华为专区&#39;)">【推荐】了不起的开发者，挡不住的华为，园子里的品牌专区</a><br></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id="div-gpt-ad-1592365906576-0" style="width: 300px; height: 250px;" data-google-query-id="CLb3uqLz5ewCFQ-8vQodEXgHLA"><div id="google_ads_iframe_/1090369/C1_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C1_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C1_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" data-google-container-id="1" style="border: 0px; vertical-align: bottom;" data-load-complete="true" src="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/saved_resource.html"></iframe></div></div>
+    </div>
+    <div id="under_post_news"><div class="recomm-block"><b>相关博文：</b><br>·  <a title="Linux" href="https://www.cnblogs.com/fyf79515/p/12031654.html" target="_blank" onclick="clickRecomItmem(12031654)">Linux</a><br>·  <a title="Linux" href="https://www.cnblogs.com/aaron-zhou/p/12008601.html" target="_blank" onclick="clickRecomItmem(12008601)">Linux</a><br>·  <a title="Linux" href="https://www.cnblogs.com/mh20131118/p/12007097.html" target="_blank" onclick="clickRecomItmem(12007097)">Linux</a><br>·  <a title="Linuxjobcontrol" href="https://www.cnblogs.com/sparkdev/p/11980732.html" target="_blank" onclick="clickRecomItmem(11980732)">Linuxjobcontrol</a><br>·  <a title="Linux" href="https://www.cnblogs.com/zahngyu/p/11993793.html" target="_blank" onclick="clickRecomItmem(11993793)">Linux</a><br>»  <a target="_blank" href="https://recomm.cnblogs.com/blogpost/11224842">更多推荐...</a></div></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id="div-gpt-ad-1592366332455-0" style="width: 468px; height: 60px;" data-google-query-id="CLf3uqLz5ewCFQ-8vQodEXgHLA"><div id="google_ads_iframe_/1090369/C2_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C2_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C2_0" width="468" height="60" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" data-google-container-id="2" style="border: 0px; vertical-align: bottom;" data-load-complete="true" src="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/saved_resource(1).html"></iframe></div></div>
+    </div>
+    <div id="under_post_kb">
+<div class="itnews c_ad_block">
+    <b>最新 IT 新闻</b>:
+    <br>
+ ·          <a href="https://news.cnblogs.com/n/676444/" target="_blank">iPhone难续苹果“中国梦”</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/676466/" target="_blank">胡锡进：马云等人被约谈，如果能透露些内容更好</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/676465/" target="_blank">键盘内置电脑，起价70美元！树莓派400上市</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/676464/" target="_blank">科普：什么是 5G CPE</a>
+        <br>
+ ·          <a href="https://news.cnblogs.com/n/676463/" target="_blank">四轮可变形+两座！全球首款可变飞行汽车完成空中测试</a>
+        <br>
+    » <a href="https://news.cnblogs.com/" title="IT 新闻" target="_blank">更多新闻...</a>
+</div></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+       var commentManager = new blogCommentManager();
+       commentManager.renderComments(0);
+       fixPostBody();
+       deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);       deliverT2();
+       deliverC1C2();
+       loadNewsAndKb();
+       loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);       LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+       GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+       loadOptUnderPost();
+       GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+   </script>
+</div>
+
+    </div>
+</div>
+            </div>
+        </div>
+
+        <div id="sideBar">
+            <div id="sideBarMain">
+                <div id="sidebar_news" class="newsItem">
+<h3 class="catListTitle">公告</h3>
+
+<div id="blog-news">
+    <strong style="color: #0000ff">一起来学习.net组件和控件开发,不要停留在拖别人控件的层次上，开发自己的控件，现在开始接触.net底层 。</strong>
+    <div id="profile_block">
+        昵称：
+        <a href="https://home.cnblogs.com/u/sxmny/">
+            伤心木乃伊
+        </a>
+        <br>
+        园龄：
+        <a href="https://home.cnblogs.com/u/sxmny/" title="入园时间：2011-06-06">
+            9年4个月
+        </a>
+        <br>
+        粉丝：
+        <a href="https://home.cnblogs.com/u/sxmny/followers/">
+            6
+        </a>
+        <br>
+        关注：
+        <a href="https://home.cnblogs.com/u/sxmny/followees/">
+            1
+        </a>
+        <div id="p_b_follow">
+<a href="javascript:void(0)" onclick="follow(&#39;bf4b4ca4-2f90-e011-a53f-842b2b196315&#39;)">+加关注</a></div>
+        <script>getFollowStatus('bf4b4ca4-2f90-e011-a53f-842b2b196315');</script>
+    </div>
+</div></div>
+<div id="sidebar_ad"></div>
+                <div id="calendar"><div id="blog-calendar" style="">
+
+<table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar" border="0">
+    <tbody>
+        <tr>
+            <td colspan="7">
+                <table class="CalTitle" cellspacing="0" border="0">
+                    <tbody>
+                        <tr>
+                            <td class="CalNextPrev">
+                                <a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2020/10/03&#39;); return false;">&lt;</a>
+                            </td>
+                            <td align="center">2020年11月</td>
+                            <td align="right" class="CalNextPrev">
+                                <a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2020/12/03&#39;); return false;">&gt;</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    <tr>
+        <th class="CalDayHeader" align="center" abbr="日" scope="col">日</th>
+        <th class="CalDayHeader" align="center" abbr="一" scope="col">一</th>
+        <th class="CalDayHeader" align="center" abbr="二" scope="col">二</th>
+        <th class="CalDayHeader" align="center" abbr="三" scope="col">三</th>
+        <th class="CalDayHeader" align="center" abbr="四" scope="col">四</th>
+        <th class="CalDayHeader" align="center" abbr="五" scope="col">五</th>
+        <th class="CalDayHeader" align="center" abbr="六" scope="col">六</th>
+    </tr>
+            <tr>
+                        <td class="CalWeekendDay" align="center">
+                            1
+                        </td>
+                        <td class="" align="center">
+                            2
+                        </td>
+                        <td class="CalTodayDay" align="center">
+                            3
+                        </td>
+                        <td class="" align="center">
+                            4
+                        </td>
+                        <td class="" align="center">
+                            5
+                        </td>
+                        <td class="" align="center">
+                            6
+                        </td>
+                    <td class="CalWeekendDay" align="center">
+                        7
+                    </td>
+            </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            8
+                        </td>
+                            <td class="" align="center">
+                                9
+                            </td>
+                            <td class="" align="center">
+                                10
+                            </td>
+                            <td class="" align="center">
+                                11
+                            </td>
+                            <td class="" align="center">
+                                12
+                            </td>
+                            <td class="" align="center">
+                                13
+                            </td>
+                        <td class="CalWeekendDay" align="center">
+                            14
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            15
+                        </td>
+                            <td class="" align="center">
+                                16
+                            </td>
+                            <td class="" align="center">
+                                17
+                            </td>
+                            <td class="" align="center">
+                                18
+                            </td>
+                            <td class="" align="center">
+                                19
+                            </td>
+                            <td class="" align="center">
+                                20
+                            </td>
+                        <td class="CalWeekendDay" align="center">
+                            21
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            22
+                        </td>
+                            <td class="" align="center">
+                                23
+                            </td>
+                            <td class="" align="center">
+                                24
+                            </td>
+                            <td class="" align="center">
+                                25
+                            </td>
+                            <td class="" align="center">
+                                26
+                            </td>
+                            <td class="" align="center">
+                                27
+                            </td>
+                        <td class="CalWeekendDay" align="center">
+                            28
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalWeekendDay" align="center">
+                            29
+                        </td>
+                            <td class="" align="center">
+                                30
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                1
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                2
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                3
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                4
+                            </td>
+                        <td class="CalOtherMonthDay" align="center">
+                            5
+                        </td>
+                </tr>
+                <tr>
+                        <td class="CalOtherMonthDay" align="center">
+                            6
+                        </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                7
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                8
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                9
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                10
+                            </td>
+                            <td class="CalOtherMonthDay" align="center">
+                                11
+                            </td>
+                        <td class="CalOtherMonthDay" align="center">
+                            12
+                        </td>
+                </tr>
+    </tbody>
+</table></div></div>                
+                <script>loadBlogDefaultCalendar();</script>
+                <div id="leftcontentcontainer">
+                    <!-- begin:SingleColumn -->
+                    <div id="blog-sidecolumn"><!-- 搜索 -->
+<div id="sidebar_search" class="sidebar-block">
+    <div id="sidebar_search" class="mySearch">
+        <h3 class="catListTitle">搜索</h3>
+        <div id="sidebar_search_box">
+            <div id="widget_my_zzk" class="div_my_zzk">
+                <input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk">
+            </div>
+            <div id="widget_my_google" class="div_my_zzk">
+                <input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 常用链接 -->
+<div id="sidebar_shortcut" class="sidebar-block">
+<h3 class="catListTitle">
+常用链接
+</h3>
+<ul>
+    
+<li><a href="https://www.cnblogs.com/sxmny/p/" title="我的博客的随笔列表">我的随笔</a></li>
+<li><a href="https://www.cnblogs.com/sxmny/MyComments.html" title="我的发表过的评论列表">我的评论</a></li>
+<li><a href="https://www.cnblogs.com/sxmny/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li>
+<li><a href="https://www.cnblogs.com/sxmny/RecentComments.html" title="我的博客的评论列表">最新评论</a></li>
+<li><a href="https://www.cnblogs.com/sxmny/tag/" title="我的博客的标签列表">我的标签</a></li>
+
+</ul>
+</div>
+
+<!-- 最新随笔 -->
+
+
+<!-- 我的标签 -->
+<div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+    <h3 class="catListTitle">我的标签</h3>
+    <ul>
+                <li>
+            <a href="https://www.cnblogs.com/sxmny/tag/.net%E6%8E%A7%E4%BB%B6%E5%BC%80%E5%8F%91%E8%8F%9C%E9%B8%9F/">.net控件开发菜鸟<span class="tag-count">(2)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/sxmny/tag/%E4%BC%A4%E5%BF%83%E6%9C%A8%E4%B9%83%E4%BC%8A/">伤心木乃伊<span class="tag-count">(2)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/sxmny/tag/%E5%A4%96%E5%8D%96%E7%BD%91/">外卖网<span class="tag-count">(1)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/sxmny/tag/%E5%BE%AE%E5%BA%97%E6%89%8B%E6%9C%BA%E7%89%88/">微店手机版<span class="tag-count">(1)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/sxmny/tag/%E5%BE%AE%E4%BF%A1%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%8E%A5%E5%8F%A3%E5%92%8C%E4%B8%A4%E4%B8%AAACCESS_TOKEN/">微信获取用户信息的两个接口和两个ACCESS_TOKEN<span class="tag-count">(1)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/sxmny/tag/%E6%96%B0%E6%B5%AA%E5%BE%AE%E5%8D%9A%E6%95%88%E6%9E%9C%29/">新浪微博效果)<span class="tag-count">(1)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/sxmny/tag/%E7%94%A8jQuery%2Bcss%2Bdiv%20%E5%86%99%E4%B8%80%E4%B8%AA%20%E4%B9%B1%E6%8D%A2%E6%95%88%E6%9E%9C/">用jQuery+css+div 写一个 乱换效果<span class="tag-count">(1)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/sxmny/tag/%E7%94%A8%E6%A8%AA%E7%BA%BF%E9%9A%94%E5%BC%80%E5%AD%97%E7%AC%A6%E4%B8%B2/">用横线隔开字符串<span class="tag-count">(1)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/sxmny/tag/%E7%94%A8%E8%86%B3%E5%90%A7/">用膳吧<span class="tag-count">(1)</span></a>
+        </li>
+        <li>
+            <a href="https://www.cnblogs.com/sxmny/tag/%E7%94%A8%E8%86%B3%E5%90%A7%E5%88%9B%E4%B8%9A/">用膳吧创业<span class="tag-count">(1)</span></a>
+        </li>
+    <li>
+        <a href="https://www.cnblogs.com/sxmny/tag/">更多</a>
+    </li>
+
+    </ul>
+</div>
+</div>
+
+<!-- 积分与排名 -->
+
+
+<!-- 随笔分类、随笔档案、文章分类、新闻分类、相册、链接 -->
+<div id="sidebar_categories">
+        <div class="catListPostCategory">
+            <h3 class="catListTitle">
+                
+随笔分类
+<span style="font-size:11px;font-weight:normal">(100)</span>
+
+
+            </h3>
+            <ul>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/category/307030.html" rel="" target="">
+    .net控件组件开发(5)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/category/1577582.html" rel="" target="">
+    AD管理(2)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/category/592023.html" rel="" target="">
+    android(9)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/category/351707.html" rel="" target="">
+    asp.net(18)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/category/610235.html" rel="" target="">
+    CSS3+html5 奋斗不止(9)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/category/1496225.html" rel="" target="">
+    Docker(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/category/1168576.html" rel="" target="">
+    elasticsearch.net(4)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/category/1417543.html" rel="" target="">
+    git(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/category/1542303.html" rel="" target="">
+    handsontable(2)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/category/1560213.html" rel="" target="">
+    Jexcel(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/category/307031.html" rel="" target="">
+    Jquery(18)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/category/1451162.html" rel="" target="">
+    LIMS(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/category/1508705.html" rel="" target="">
+    linux(4)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/category/391355.html" rel="" target="">
+    MVC(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/category/541817.html" rel="" target="">
+    PhoneGap(2)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/category/449828.html" rel="" target="">
+    SQL(9)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/category/1198135.html" rel="" target="">
+    vue(2)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/category/1206926.html" rel="" target="">
+    webpack(5)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/category/634330.html" rel="" target="">
+    拆站分析(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/category/1366681.html" rel="" target="">
+    持续部署(4)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/category/755963.html" rel="" target="">
+    一些编程笔记(1)
+</a>
+
+                            
+
+                        </li>
+                        
+            </ul>
+        </div>
+        <div class="catListPostArchive">
+            <h3 class="catListTitle">
+                
+随笔档案
+<span style="font-size:11px;font-weight:normal">(119)</span>
+
+
+            </h3>
+            <ul>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2020/10.html" rel="" target="">
+    2020年10月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2020/09.html" rel="" target="">
+    2020年9月(2)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2020/06.html" rel="" target="">
+    2020年6月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2020/05.html" rel="" target="">
+    2020年5月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2020/04.html" rel="" target="">
+    2020年4月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2020/01.html" rel="" target="">
+    2020年1月(3)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2019/11.html" rel="" target="">
+    2019年11月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2019/10.html" rel="" target="">
+    2019年10月(2)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2019/09.html" rel="" target="">
+    2019年9月(2)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2019/07.html" rel="" target="">
+    2019年7月(4)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2019/06.html" rel="" target="">
+    2019年6月(3)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2019/05.html" rel="" target="">
+    2019年5月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2019/04.html" rel="" target="">
+    2019年4月(3)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2019/03.html" rel="" target="">
+    2019年3月(2)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2019/02.html" rel="" target="">
+    2019年2月(2)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2018/12.html" rel="" target="">
+    2018年12月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2018/09.html" rel="" target="">
+    2018年9月(2)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2018/07.html" rel="" target="">
+    2018年7月(2)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2018/06.html" rel="" target="">
+    2018年6月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2018/04.html" rel="" target="">
+    2018年4月(4)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2018/03.html" rel="" target="">
+    2018年3月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2018/02.html" rel="" target="">
+    2018年2月(3)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2017/11.html" rel="" target="">
+    2017年11月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2017/09.html" rel="" target="">
+    2017年9月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2017/08.html" rel="" target="">
+    2017年8月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2017/07.html" rel="" target="">
+    2017年7月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2017/06.html" rel="" target="">
+    2017年6月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2017/04.html" rel="" target="">
+    2017年4月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2017/03.html" rel="" target="">
+    2017年3月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2016/02.html" rel="" target="">
+    2016年2月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2016/01.html" rel="" target="">
+    2016年1月(3)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2015/12.html" rel="" target="">
+    2015年12月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2015/11.html" rel="" target="">
+    2015年11月(6)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2015/10.html" rel="" target="">
+    2015年10月(3)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2015/08.html" rel="" target="">
+    2015年8月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2015/07.html" rel="" target="">
+    2015年7月(3)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2015/06.html" rel="" target="">
+    2015年6月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2015/01.html" rel="" target="">
+    2015年1月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2014/12.html" rel="" target="">
+    2014年12月(3)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2014/11.html" rel="" target="">
+    2014年11月(2)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2014/10.html" rel="" target="">
+    2014年10月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2014/09.html" rel="" target="">
+    2014年9月(4)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2014/08.html" rel="" target="">
+    2014年8月(5)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2014/07.html" rel="" target="">
+    2014年7月(3)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2014/06.html" rel="" target="">
+    2014年6月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2014/02.html" rel="" target="">
+    2014年2月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2014/01.html" rel="" target="">
+    2014年1月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2013/12.html" rel="" target="">
+    2013年12月(2)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2013/09.html" rel="" target="">
+    2013年9月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2013/07.html" rel="" target="">
+    2013年7月(2)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2013/06.html" rel="" target="">
+    2013年6月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2013/05.html" rel="" target="">
+    2013年5月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2013/03.html" rel="" target="">
+    2013年3月(2)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2013/01.html" rel="" target="">
+    2013年1月(2)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2012/11.html" rel="" target="">
+    2012年11月(2)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2012/10.html" rel="" target="">
+    2012年10月(1)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2012/05.html" rel="" target="">
+    2012年5月(2)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2012/04.html" rel="" target="">
+    2012年4月(5)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2012/02.html" rel="" target="">
+    2012年2月(2)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2012/01.html" rel="" target="">
+    2012年1月(3)
+</a>
+
+                            
+
+                        </li>
+                        
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/archive/2011/10.html" rel="" target="">
+    2011年10月(2)
+</a>
+
+                            
+
+                        </li>
+                        
+            </ul>
+        </div>
+        <div class="catListArticleCategory">
+            <h3 class="catListTitle">
+                
+文章分类
+<span style="font-size:11px;font-weight:normal">(2)</span>
+
+
+            </h3>
+            <ul>
+                        <li>
+                            
+<a href="https://www.cnblogs.com/sxmny/category/329825.html" rel="" target="">
+    Jquery(2)
+</a>
+
+                            
+
+                        </li>
+                        
+            </ul>
+        </div>
+</div>
+
+<!-- 最新评论 -->
+<div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap" class="RecentComment">
+    <h3 class="catListTitle">最新评论</h3>
+    <div class="RecentCommentBlock">
+        <ul>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/sxmny/p/11224842.html">1. Re:linux开放指定端口命令</a></li>
+                    <li class="recent_comment_body"><p>帅</p>
+</li>
+                    <li class="recent_comment_author">--hsxas</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/sxmny/articles/4969119.html">2. Re:微信获取用户信息的两个接口和两个ACCESS_TOKEN</a></li>
+                    <li class="recent_comment_body"><p>不错，谢了</p>
+</li>
+                    <li class="recent_comment_author">--打杂滴</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/sxmny/articles/4969119.html">3. Re:微信获取用户信息的两个接口和两个ACCESS_TOKEN</a></li>
+                    <li class="recent_comment_body">虽然没能解决我的问题  但是我学到了很多东西  难怪我只能用不带斜杠的那个 用斜杠的那个就不行 不知道微信怎么想的</li>
+                    <li class="recent_comment_author">--sdlkfjlsdkfj</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/sxmny/articles/4969119.html">4. Re:微信获取用户信息的两个接口和两个ACCESS_TOKEN</a></li>
+                    <li class="recent_comment_body">谢谢，做个参照 很不错！</li>
+                    <li class="recent_comment_author">--Laughing_Lz</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/sxmny/articles/4969119.html">5. Re:微信获取用户信息的两个接口和两个ACCESS_TOKEN</a></li>
+                    <li class="recent_comment_body">谢谢，内容总结的很棒</li>
+                    <li class="recent_comment_author">--zuoluo11</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/sxmny/articles/4969119.html">6. Re:微信获取用户信息的两个接口和两个ACCESS_TOKEN</a></li>
+                    <li class="recent_comment_body">我会在这个接口 缓存 token值 但是调用下面这个接口会导致上面的这个token失效。这种情况是怎么处理的？...</li>
+                    <li class="recent_comment_author">--雪原日暮</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/sxmny/p/6537996.html">7. Re:开源项目Html Agility Pack实现快速解析Html</a></li>
+                    <li class="recent_comment_body"><a href="https://www.cnblogs.com/sxmny/p/11224842.html" target="_blank"></a>=groupmessage&amp;isappinstalled=0</li>
+                    <li class="recent_comment_author">--伤心木乃伊</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/sxmny/articles/4969119.html">8. Re:微信获取用户信息的两个接口和两个ACCESS_TOKEN</a></li>
+                    <li class="recent_comment_body">={0}&amp;openid={1}&amp;lang=zh_CN和 =ACCESS_TOKEN&amp;openid=OPENID&amp;lang=zh_CN 哪个可以获取subscribe 值，为什么我只要获取这个，程序就报...</li>
+                    <li class="recent_comment_author">--寨♂冇嚸ル壞</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/sxmny/articles/4969119.html">9. Re:微信获取用户信息的两个接口和两个ACCESS_TOKEN</a></li>
+                    <li class="recent_comment_body">不错，带我出坑</li>
+                    <li class="recent_comment_author">--hngbk</li>
+                    <li class="recent_comment_title"><a href="https://www.cnblogs.com/sxmny/p/5169784.html">10. Re:360自动抢票还不够，几行js代码设置无人值守</a></li>
+                    <li class="recent_comment_body">不错,楼主是个有想法动手能力强的人,赞一个!</li>
+                    <li class="recent_comment_author">--沃尔德</li>
+        </ul>
+    </div>
+</div></div>
+
+
+<!-- 阅读排行榜 -->
+<div id="sidebar_topviewedposts" class="sidebar-block">
+<div id="topview_posts_wrap">
+    <h3 class="catListTitle">阅读排行榜</h3>
+    <div id="TopViewPostsBlock">
+        <ul style="word-break:break-all">
+                    <li>
+                        <a href="https://www.cnblogs.com/sxmny/p/11224842.html">
+                            1. linux开放指定端口命令(94834)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/sxmny/p/10441346.html">
+                            2. mysql 查询正在执行的sql(12891)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/sxmny/p/5169784.html">
+                            3. 360自动抢票还不够，几行js代码设置无人值守(5974)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/sxmny/p/11504955.html">
+                            4. linux 重启mysql  redis等服务器(5383)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/sxmny/p/8805070.html">
+                            5. elasticsearch内存耗尽的问题(5380)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/sxmny/p/7892240.html">
+                            6. 解决Keep-Alive 和 Close 不能使用此属性设置(2921)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/sxmny/p/12190772.html">
+                            7. mysql参数之innodb_buffer_pool_size大小设置(2052)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/sxmny/p/9266476.html">
+                            8. c# 使用Expression 生成sql(1781)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/sxmny/p/5160601.html">
+                            9. HttpWebRequest请求返回非200的时候 HttpWebResponse怎么接受返回错误提示(1767)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/sxmny/p/4966626.html">
+                            10. 让er studio 生成带说明的sql(1635)
+                        </a>
+                    </li>
+        </ul>
+    </div>
+</div></div>
+
+<!-- 评论排行榜 -->
+<div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+    <h3 class="catListTitle">评论排行榜</h3>
+    <div id="TopFeedbackPostsBlock">
+        <ul style="word-break:break-all">
+                    <li>
+                        <a href="https://www.cnblogs.com/sxmny/p/5169784.html">
+                            1. 360自动抢票还不够，几行js代码设置无人值守(8)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/sxmny/archive/2013/01/29/2881464.html">
+                            2. 招聘一个.net高级工程师(3)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/sxmny/archive/2012/02/03/2336628.html">
+                            3. 用横线隔开字符串(3)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/sxmny/archive/2012/04/28/2475398.html">
+                            4. 带一键还原的FTP上传软件(2)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/sxmny/p/11224842.html">
+                            5. linux开放指定端口命令(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/sxmny/p/6537996.html">
+                            6. 开源项目Html Agility Pack实现快速解析Html(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/sxmny/archive/2013/03/13/2957725.html">
+                            7. jQuery.validate 验证插件(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/sxmny/archive/2012/04/12/2443457.html">
+                            8. 动态加载js文件并且执行回调方法(1)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.cnblogs.com/sxmny/archive/2012/01/29/2330957.html">
+                            9. Jquery写个鼠标拖动的层(1)
+                        </a>
+                    </li>
+        </ul>
+    </div>
+</div></div>
+
+<!-- 推荐排行榜 -->
+<div id="sidebar_topdiggedposts" class="sidebar-block">
+<div id="topdigg_posts_wrap">
+    <div class="catListView">
+        <h3 class="catListTitle">推荐排行榜</h3>
+        <div id="TopDiggPostsBlock">
+            <ul style="word-break: break-all">
+                        <li>
+                            <a href="https://www.cnblogs.com/sxmny/p/11224842.html">
+                                1. linux开放指定端口命令(5)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/sxmny/p/5169784.html">
+                                2. 360自动抢票还不够，几行js代码设置无人值守(4)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/sxmny/archive/2012/04/28/2475398.html">
+                                3. 带一键还原的FTP上传软件(3)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/sxmny/p/8973831.html">
+                                4. webpakc4.0移除了 CommonsChunkPlugin  组建(1)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.cnblogs.com/sxmny/archive/2013/01/29/2881838.html">
+                                5. Sql 权限设计记录(1)
+                            </a>
+                        </li>
+            </ul>
+        </div>
+    </div>
+</div></div></div>
+                    <script>loadBlogSideColumn();</script>
+                    <!-- end:  SingleColumn -->
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+    <div id="footer">
+        <!--done-->
+Copyright © 2020 伤心木乃伊
+<br><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+    </div>
+</div>
+
+    
+
+
+<iframe id="google_osd_static_frame_4573336678451" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="./linux开放指定端口命令 - 伤心木乃伊 - 博客园_files/saved_resource(2).html"></iframe><div class="xl-chrome-ext-bar" id="xl_chrome_ext_{4DB361DE-01F7-4376-B494-639E489D19ED}" style="display: none;">
+      <div class="xl-chrome-ext-bar__logo"></div>
+
+      <a id="xl_chrome_ext_download" href="javascript:;" class="xl-chrome-ext-bar__option">下载视频</a>
+      <a id="xl_chrome_ext_close" href="javascript:;" class="xl-chrome-ext-bar__close"></a>
+    </div></body></html>
